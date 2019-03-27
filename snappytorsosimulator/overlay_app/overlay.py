@@ -27,9 +27,28 @@ def configure_tracker (config):
     tracker.start_tracking()
     return tracker
 
+
+def lookupimage (usbuffer, pt):
+    """
+    determines whether a coordinate (pt) lies with an area defined by
+    a usbuffer, which is a dictionary containing a bunch of images and
+    some bounding box information
+    """
+    if pt[0] > usbuffer.get("x0"):
+        if pt[0] < usbuffer.get("x1"):
+            if pt[1] > usbuffer.get("y0"):
+                if pt[1] < usbuffer.get("y1"):
+                    #do it by x, as in general we have more pixels that way
+                    diff=pt[0] - usbuffer.get("x0")
+                    pdiff = int(diff / (usbuffer.get("x1") - usbuffer.get("x0")) * len(usbuffer.get("buffer")))
+                    return True, usbuffer.get("buffer")[pdiff]
+
+    return False, None
+
+
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
-    adding code to read in video buffers, and display a frame 
+    adding code to read in video buffers, and display a frame
     of data that depends on the position of an external tracking system,
     e.g. surgeryarucotracker"""
 
@@ -48,38 +67,45 @@ class OverlayApp(OverlayBaseApp):
             raise KeyError ("Configuration must contain an ultrasound buffer")
 
         self._video_buffers = []
-        #maybe ._video_buffers is a list of dictionary, 
-        #each contains a video buffer, a description, and 
+        #maybe ._video_buffers is a list of dictionary,
+        #each contains a video buffer, a description, and
         #and an extent
         frame_counter = 0
-        
+
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
                 start_frame = usbuffer.get("start frame")
                 end_frame = usbuffer.get("end frame")
                 tempbuffer = []
                 if start_frame == frame_counter:
-                    while frame_counter < end_frame:
+                    while frame_counter <= end_frame:
                         ret, image = self.video_source.read()
                         frame_counter = frame_counter + 1
                         tempbuffer.append(image)
                 print ("adding frame ", len(tempbuffer), " images to buffer ", usbuffer.get("name"))
                 usbuffer.update({"buffer" : tempbuffer})
-                
+
                 self._video_buffers.append(usbuffer)
-                
+
 
         self._tracker = None
-        
+
         if "tracker config" in config:
             tracker_config = config.get("tracker config")
             self._tracker = configure_tracker(config.get("tracker config"))
-        
+
         #this is a bit of a hack. Is there a better way?
-        bgimage = self._tracker._capture.read()
-        print (numpy.shape(bgimage))
-        height, width, channels = numpy.shape(bgimage)
-        self._backgroundimage = numpy.zeros((height, width, channels), numpy.uint8)
+        _, bgimage = self._tracker._capture.read()
+
+        self._backgroundimage = numpy.zeros((bgimage.shape), numpy.uint8)
+        if "buffer descriptions" in config:
+            for usbuffer in config.get("buffer descriptions"):
+                pt0=(usbuffer.get("x0"),usbuffer.get("y0"))
+                pt1=(usbuffer.get("x1"),usbuffer.get("y1"))
+                cv2.rectangle(self._backgroundimage,pt0,pt1,[255,255,255])
+                cv2.putText(self._backgroundimage, usbuffer.get("name"),pt0, 0, 1.0, [255,255,255])
+
+        self._defaultimage = cv2.imread("../../data/logo.png")
 
     def update(self):
         """Update the background renderer with a new frame,
@@ -106,14 +132,24 @@ class OverlayApp(OverlayBaseApp):
         """
         port_handles, _, _, tracking, _ = self._tracker.get_frame()
 
+        tempimg = self._backgroundimage.copy()
+
+        pt=None
         if port_handles:
-            #these will need working on, need a way to match model names with port handles
-            pass
-        
-        usbuffer = self._video_buffers[0].get("buffer")
-        image = usbuffer[0]
-        cv2.imshow('tracking',self._backgroundimage)
-        return image
+            for i in range(len(port_handles)):
+                if port_handles[i] == 0:
+                    pt=(tracking[i][0,3],tracking[i][1,3])
+                    cv2.circle(tempimg,pt,5,[255,255,255])
+
+        cv2.imshow('tracking',tempimg)
+
+        if pt:
+            for usbuffer in self._video_buffers:
+                inframe, image = lookupimage (usbuffer, pt)
+                if inframe:
+                    return image
+
+        return self._defaultimage
 
 #here's a dummy app just to test the class. Quickly
 if __name__ == '__main__':
@@ -124,24 +160,25 @@ if __name__ == '__main__':
                                                { "name" : "glove",
                                                  "start frame" : 0,
                                                  "end frame" : 100,
-                                                 "x0" : 80 , "x1" : 160,
-                                                 "y0" : 20 , "y1" : 200 },
+                                                 "x0" : 80 , "x1" : 360,
+                                                 "y0" : 20 , "y1" : 160 },
                                                { "name" : "glove2",
                                                  "start frame" : 101,
                                                  "end frame" : 200,
-                                                 "x0" : 80 , "x1" : 160,
-                                                 "y0" : 20 , "y1" : 200 }
+                                                 "x0" : 80 , "x1" : 360,
+                                                 "y0" : 200 , "y1" : 360 }
                                                ),
 
                         "tracker config" :
                         {
                             "tracker type" : "aruco",
-                            "video source" : 2,
+                           # "video source" : 2,
+                            "video source" : 0,
                             "debug" : True,
-                            "capture properties" : 
+                            "capture properties" :
                             {
                                 "CAP_PROP_FRAME_WIDTH" : 1280 ,
-                                "CAP_PROP_FRAME_HEIGHT" : 960 
+                                "CAP_PROP_FRAME_HEIGHT" : 960
                             }
 
                         }
