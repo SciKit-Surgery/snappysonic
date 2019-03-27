@@ -1,0 +1,6 @@
+[run]
+omit = 
+        ./snappytorsosimulator/_version.py
+        ./snappytorsosimulator/__init__.py
+        ./snappytorsosimulator/__main__.py
+        ./snappytorsosimulator/ui/snappytorsosimulator_command_line.py
