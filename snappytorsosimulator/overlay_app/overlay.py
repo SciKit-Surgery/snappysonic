@@ -169,44 +169,42 @@ if __name__ == '__main__':
                                                 "name" : "glove",
                                                 "start frame" : 0,
                                                 "end frame" : 284,
-                                                "x0" : 80 , "x1" : 360,
+                                                "x0" : 20 , "x1" : 200,
                                                 "y0" : 20 , "y1" : 160
                                                },
                                                {
                                                 "name" : "caterpillar",
                                                 "start frame" : 285,
                                                 "end frame" : 560,
-                                                "x0" : 400 , "x1" : 860,
+                                                "x0" : 220 , "x1" : 460,
                                                 "y0" : 20 , "y1" : 160
                                                },
                                                {
                                                 "name" : "unknown",
                                                 "start frame" : 561,
                                                 "end frame" : 816,
-                                                "x0" : 80 , "x1" : 360,
+                                                "x0" : 20 , "x1" : 200,
                                                 "y0" : 200 , "y1" : 360
                                                },
                                                {
                                                 "name" : "orange",
                                                 "start frame" : 817,
                                                 "end frame" : 1060,
-                                                "x0" : 400 , "x1" : 860,
+                                                "x0" : 220 , "x1" : 460,
                                                 "y0" : 200 , "y1" : 360
                                                }
-                                              },
-
-                                               ),
+                                              ),
 
                         "tracker config" :
                         {
                             "tracker type" : "aruco",
-                           # "video source" : 2,
-                            "video source" : 0,
+                            "video source" : 2,
+                           # "video source" : 0,
                             "debug" : True,
                             "capture properties" :
                             {
-                                "CAP_PROP_FRAME_WIDTH" : 1280 ,
-                                "CAP_PROP_FRAME_HEIGHT" : 960
+                                "CAP_PROP_FRAME_WIDTH" : 640 ,
+                                "CAP_PROP_FRAME_HEIGHT" : 480
                             }
 
                         }
