@@ -1,55 +1,15 @@
 # coding=utf-8
 
 """Main loop for tracking visualisation"""
-#from sksurgerytrackervisualisation.shapes import cone, cylinder
-from itertools import cycle
 from sys import version_info, exit
-from vtk.util import numpy_support
-import cv2
-import numpy
+from cv2 import (rectangle, putText, circle, imread, imshow)
+from numpy import zeros, uint8
 from PySide2.QtWidgets import QApplication
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
-from sksurgerynditracker.nditracker import NDITracker
-from sksurgeryarucotracker.arucotracker import ArUcoTracker
+from snappytorsosimulator.algorithms.algorithms import (configure_tracker,
+                                                        lookupimage, noisy,
+                                                        check_us_buffer)
 
-def configure_tracker (config):
-    if "tracker type" not in config:
-        raise KeyError ('Tracker configuration requires tracker type')
-
-    tracker_type = config.get("tracker type")
-    tracker = None
-    if tracker_type in ("vega", "polaris", "aurora", "dummy"):
-        tracker = NDITracker(config)
-    if tracker_type in ("aruco"):
-        tracker = ArUcoTracker(config)
-
-    tracker.start_tracking()
-    return tracker
-
-
-def lookupimage (usbuffer, pt):
-    """
-    determines whether a coordinate (pt) lies with an area defined by
-    a usbuffer, which is a dictionary containing a bunch of images and
-    some bounding box information
-    """
-    if pt[0] > usbuffer.get("x0"):
-        if pt[0] < usbuffer.get("x1"):
-            if pt[1] > usbuffer.get("y0"):
-                if pt[1] < usbuffer.get("y1"):
-                    #do it by x, as in general we have more pixels that way
-                    diff=pt[0] - usbuffer.get("x0")
-                    pdiff = int(diff / (usbuffer.get("x1") - usbuffer.get("x0")) * len(usbuffer.get("buffer")))
-                    return True, usbuffer.get("buffer")[pdiff]
-
-    return False, None
-
-def noisy(image):
-    row,col,ch= image.shape
-    mean = 0
-    stddev = (50,5,5)
-    cv2.randn(image,(mean),(stddev))
-    return image
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
@@ -79,6 +39,7 @@ class OverlayApp(OverlayBaseApp):
 
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
+                check_us_buffer(usbuffer)
                 start_frame = usbuffer.get("start frame")
                 end_frame = usbuffer.get("end frame")
                 tempbuffer = []
@@ -102,15 +63,15 @@ class OverlayApp(OverlayBaseApp):
         #this is a bit of a hack. Is there a better way?
         _, bgimage = self._tracker._capture.read()
 
-        self._backgroundimage = numpy.zeros((bgimage.shape), numpy.uint8)
+        self._backgroundimage = zeros((bgimage.shape), uint8)
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
                 pt0=(usbuffer.get("x0"),usbuffer.get("y0"))
                 pt1=(usbuffer.get("x1"),usbuffer.get("y1"))
-                cv2.rectangle(self._backgroundimage,pt0,pt1,[255,255,255])
-                cv2.putText(self._backgroundimage, usbuffer.get("name"),pt0, 0, 1.0, [255,255,255])
+                rectangle(self._backgroundimage,pt0,pt1,[255,255,255])
+                putText(self._backgroundimage, usbuffer.get("name"),pt0, 0, 1.0, [255,255,255])
 
-        self._defaultimage = cv2.imread("../../data/logo.png")
+        self._defaultimage = imread("../../data/logo.png")
 
     def update(self):
         """Update the background renderer with a new frame,
@@ -144,9 +105,9 @@ class OverlayApp(OverlayBaseApp):
             for i in range(len(port_handles)):
                 if port_handles[i] == 0:
                     pt=(tracking[i][0,3],tracking[i][1,3])
-                    cv2.circle(tempimg,pt,5,[255,255,255])
+                    circle(tempimg,pt,5,[255,255,255])
 
-        cv2.imshow('tracking',tempimg)
+        imshow('tracking',tempimg)
 
         if pt:
             for usbuffer in self._video_buffers:
@@ -170,28 +131,32 @@ if __name__ == '__main__':
                                                 "start frame" : 0,
                                                 "end frame" : 284,
                                                 "x0" : 20 , "x1" : 200,
-                                                "y0" : 20 , "y1" : 160
+                                                "y0" : 20 , "y1" : 160,
+                                                "scan direction" : "x"
                                                },
                                                {
                                                 "name" : "caterpillar",
                                                 "start frame" : 285,
                                                 "end frame" : 560,
                                                 "x0" : 220 , "x1" : 460,
-                                                "y0" : 20 , "y1" : 160
+                                                "y0" : 20 , "y1" : 160,
+                                                "scan direction" : "x"
                                                },
                                                {
                                                 "name" : "unknown",
                                                 "start frame" : 561,
                                                 "end frame" : 816,
                                                 "x0" : 20 , "x1" : 200,
-                                                "y0" : 200 , "y1" : 360
+                                                "y0" : 200 , "y1" : 360,
+                                                "scan direction" : "x"
                                                },
                                                {
                                                 "name" : "orange",
                                                 "start frame" : 817,
                                                 "end frame" : 1060,
                                                 "x0" : 220 , "x1" : 460,
-                                                "y0" : 200 , "y1" : 360
+                                                "y0" : 200 , "y1" : 360,
+                                                "scan direction" : "y"
                                                }
                                               ),
 
