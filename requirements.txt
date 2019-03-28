@@ -3,3 +3,8 @@
 # confused with the software requirements, which are listed in
 # doc/requirements.rst
 numpy
+opencv-contrib-python
+PySide2
+scikit-surgeryutils
+scikit-surgerynditracker
+scikit-surgeryarucotracker
