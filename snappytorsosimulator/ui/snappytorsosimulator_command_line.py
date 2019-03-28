@@ -14,24 +14,14 @@ def main(args=None):
     parser = argparse.ArgumentParser(description='snappy-torso-simulator')
 
     ## ADD POSITIONAL ARGUMENTS
-    parser.add_argument("x",
-                        type=int,
-                        help="1st number")
+    parser.add_argument(
+            "-c",
+            "--config",
+            required=True,
+            type=str,
+            help="A file containing the configuration."
+            )
 
-    parser.add_argument("y",
-                        type=int,
-                        help="2nd number")
-
-    # ADD OPTINAL ARGUMENTS
-    parser.add_argument("-m", "--multiply",
-                        action="store_true",
-                        help="Enable multiplication of inputs."
-                        )
-
-    parser.add_argument("-v", "--verbose",
-                        action="store_true",
-                        help="Enable verbose output",
-                        )
 
     version_string = __version__
     friendly_version_string = version_string if version_string else 'unknown'
@@ -42,4 +32,4 @@ def main(args=None):
 
     args = parser.parse_args(args)
 
-    run_demo(args.x, args.y, args.multiply, args.verbose)
+    run_demo(args.config)
