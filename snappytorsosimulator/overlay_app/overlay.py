@@ -11,7 +11,6 @@ from PySide2.QtWidgets import QApplication
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
-from sksurgerytrackervisualisation.shapes.cylinder import VTKCylinderModel
 
 def configure_tracker (config):
     if "tracker type" not in config:
@@ -45,6 +44,12 @@ def lookupimage (usbuffer, pt):
 
     return False, None
 
+def noisy(image):
+    row,col,ch= image.shape
+    mean = 0
+    stddev = (50,5,5)
+    cv2.randn(image,(mean),(stddev))
+    return image
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
@@ -149,24 +154,47 @@ class OverlayApp(OverlayBaseApp):
                 if inframe:
                     return image
 
-        return self._defaultimage
+        temping2 = self._defaultimage.copy()
+        temping3 = self._defaultimage.copy()
+        noise = noisy(temping2)
+        return noise + temping3
 
 #here's a dummy app just to test the class. Quickly
 if __name__ == '__main__':
     app = QApplication([])
 
-    configuration = { "ultrasound buffer" : "../../data/glove2.mp4",
+    configuration = { "ultrasound buffer" : "../../data/usbuffer.mp4",
                       "buffer descriptions" : (
-                                               { "name" : "glove",
-                                                 "start frame" : 0,
-                                                 "end frame" : 100,
-                                                 "x0" : 80 , "x1" : 360,
-                                                 "y0" : 20 , "y1" : 160 },
-                                               { "name" : "glove2",
-                                                 "start frame" : 101,
-                                                 "end frame" : 200,
-                                                 "x0" : 80 , "x1" : 360,
-                                                 "y0" : 200 , "y1" : 360 }
+                                               {
+                                                "name" : "glove",
+                                                "start frame" : 0,
+                                                "end frame" : 284,
+                                                "x0" : 80 , "x1" : 360,
+                                                "y0" : 20 , "y1" : 160
+                                               },
+                                               {
+                                                "name" : "caterpillar",
+                                                "start frame" : 285,
+                                                "end frame" : 560,
+                                                "x0" : 400 , "x1" : 860,
+                                                "y0" : 20 , "y1" : 160
+                                               },
+                                               {
+                                                "name" : "unknown",
+                                                "start frame" : 561,
+                                                "end frame" : 816,
+                                                "x0" : 80 , "x1" : 360,
+                                                "y0" : 200 , "y1" : 360
+                                               },
+                                               {
+                                                "name" : "orange",
+                                                "start frame" : 817,
+                                                "end frame" : 1060,
+                                                "x0" : 400 , "x1" : 860,
+                                                "y0" : 200 , "y1" : 360
+                                               }
+                                              },
+
                                                ),
 
                         "tracker config" :
