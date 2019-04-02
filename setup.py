@@ -47,6 +47,7 @@ setup(
         exclude=[
             'doc',
             'tests',
+            'data'
         ]
     ),
 
