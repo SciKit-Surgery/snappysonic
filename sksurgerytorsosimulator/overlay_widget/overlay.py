@@ -1,14 +1,13 @@
 # coding=utf-8
 
 """Main loop for tracking visualisation"""
-from sys import version_info, exit
+from sys import version_info
 from cv2 import (rectangle, putText, circle, imread, imshow)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
-from snappytorsosimulator.algorithms.algorithms import (configure_tracker,
-                                                        lookupimage, noisy,
-                                                        check_us_buffer)
-
+from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
+                                                           lookupimage, noisy,
+                                                           check_us_buffer)
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
@@ -28,7 +27,7 @@ class OverlayApp(OverlayBaseApp):
                 #super doesn't work the same in py2.7
                 OverlayBaseApp.__init__(self, config.get("ultrasound buffer"))
         else:
-            raise KeyError ("Configuration must contain an ultrasound buffer")
+            raise KeyError("Configuration must contain an ultrasound buffer")
 
         self._video_buffers = []
         #maybe ._video_buffers is a list of dictionary,
@@ -45,9 +44,14 @@ class OverlayApp(OverlayBaseApp):
                 if start_frame == frame_counter:
                     while frame_counter <= end_frame:
                         ret, image = self.video_source.read()
+                        if not ret:
+                            raise ValueError("Failed Reading video file",
+                                             config.get("ultrasound buffer"))
+
                         frame_counter = frame_counter + 1
                         tempbuffer.append(image)
-                print ("adding frame ", len(tempbuffer), " images to buffer ", usbuffer.get("name"))
+                print("adding frame ", len(tempbuffer), " images to buffer ",
+                      usbuffer.get("name"))
                 usbuffer.update({"buffer" : tempbuffer})
 
                 self._video_buffers.append(usbuffer)
@@ -56,19 +60,20 @@ class OverlayApp(OverlayBaseApp):
         self._tracker = None
 
         if "tracker config" in config:
-            tracker_config = config.get("tracker config")
             self._tracker = configure_tracker(config.get("tracker config"))
 
-        #this is a bit of a hack. Is there a better way?
+        #this is a bit of a hack. Is there a better way? It assumes we're using
+        #ARuCo
         _, bgimage = self._tracker._capture.read()
 
         self._backgroundimage = zeros((bgimage.shape), uint8)
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
-                pt0=(usbuffer.get("x0"),usbuffer.get("y0"))
-                pt1=(usbuffer.get("x1"),usbuffer.get("y1"))
-                rectangle(self._backgroundimage,pt0,pt1,[255,255,255])
-                putText(self._backgroundimage, usbuffer.get("name"),pt0, 0, 1.0, [255,255,255])
+                pt0 = (usbuffer.get("x0"), usbuffer.get("y0"))
+                pt1 = (usbuffer.get("x1"), usbuffer.get("y1"))
+                rectangle(self._backgroundimage, pt0, pt1, [255, 255, 255])
+                putText(self._backgroundimage, usbuffer.get("name"), pt0, 0,
+                        1.0, [255, 255, 255])
 
         self._defaultimage = None
         if "default image" in config:
@@ -103,18 +108,18 @@ class OverlayApp(OverlayBaseApp):
 
         tempimg = self._backgroundimage.copy()
 
-        pt=None
+        pts = None
         if port_handles:
             for i in range(len(port_handles)):
                 if port_handles[i] == 0:
-                    pt=(tracking[i][0,3],tracking[i][1,3])
-                    circle(tempimg,pt,5,[255,255,255])
+                    pts = (tracking[i][0, 3], tracking[i][1, 3])
+                    circle(tempimg, pts, 5, [255, 255, 255])
 
-        imshow('tracking',tempimg)
+        imshow('tracking', tempimg)
 
-        if pt:
+        if pts:
             for usbuffer in self._video_buffers:
-                inframe, image = lookupimage (usbuffer, pt)
+                inframe, image = lookupimage(usbuffer, pts)
                 if inframe:
                     return image
 
@@ -122,4 +127,3 @@ class OverlayApp(OverlayBaseApp):
         temping3 = self._defaultimage.copy()
         noise = noisy(temping2)
         return noise + temping3
-
