@@ -1,4 +1,4 @@
-snappy-torso-simulator
+scikit-torso-simulator
 ===============================
 
 .. image:: https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator/raw/master/project-icon.png
@@ -23,17 +23,46 @@ snappy-torso-simulator
 
 Author: Stephen Thompson
 
-snappy-torso-simulator is part of the `SNAPPY`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
+scikit-torso-simulator is part of the `SNAPPY`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
 
-snappy-torso-simulator supports Python 2.7 and Python 3.6.
+scikit-torso-simulator supports Python 3.6.
 
-snappy-torso-simulator is currently a demo project, which will add/multiply two numbers. Example usage:
+snappy-torso-simulator uses out put from a tracking system (NDI or AruCo tags) to select a frame of video to show. It can be used to construct a simple to use ultrasound simulator.
 
 ::
 
     python sksurgerytorsosimulator.py --config config.json
 
-Please explore the project structure, and implement your own functionality.
+The config file defines the tracking parameters and image buffer, e.g.
+
+::
+
+  {
+   "ultrasound buffer": "data/usbuffer.mp4",
+	 "default image": "data/logo.png",
+	 "buffer descriptions": [
+		{
+		 "name": "glove",
+		 "start frame": 0,
+		 "end frame": 284,
+		 "x0": 20, "x1": 200,
+		 "y0": 200, "y1": 260,
+		 "scan direction": "x"
+		},
+    ]
+    ....
+    "tracker config": {
+		"tracker type": "aruco",
+		"video source": 2,
+		"debug": true,
+		"capture properties": {
+			"CAP_PROP_FRAME_WIDTH": 640,
+			"CAP_PROP_FRAME_HEIGHT": 480
+		
+   }
+  }
+
+An example configuration file can be downloaded from `here`_ and an image buffer from `source code repository data directory`_
 
 Developing
 ----------
@@ -107,6 +136,8 @@ Supported by `Wellcome`_ and `EPSRC`_.
 
 .. _`Wellcome EPSRC Centre for Interventional and Surgical Sciences`: http://www.ucl.ac.uk/weiss
 .. _`source code repository`: https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator
+.. _`here`: https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator/config.json
+.. _`source code repository data directory`: https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator/data
 .. _`Documentation`: https://scikit-surgerytorsosimulator.readthedocs.io
 .. _`SNAPPY`: https://weisslab.cs.ucl.ac.uk/WEISS/PlatformManagement/SNAPPY/wikis/home
 .. _`University College London (UCL)`: http://www.ucl.ac.uk/
