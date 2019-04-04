@@ -6,7 +6,7 @@
 		 "name": "xxxx",
 		 "start frame": 0,
 		 "end frame": 284,
-		 "x0": 20, "x1": 200,
+		 "x0": 40, "x1": 240,
 		 "y0": 200, "y1": 260,
 		 "scan direction": "x"
 		},
@@ -14,7 +14,7 @@
 		 "name": "xxxxxx",
 		 "start frame": 285,
 		 "end frame": 560,
-		 "x0": 220, "x1": 460,
+		 "x0": 260, "x1": 460,
 		 "y0": 200, "y1": 260,
 		 "scan direction": "x"
 		},
@@ -22,26 +22,35 @@
 		 "name": "xxx",
 		 "start frame": 561,
 		 "end frame": 816,
-		 "x0": 20, "x1": 200,
-		 "y0": 280, "y1": 460,
+		 "x0": 40, "x1": 240,
+		 "y0": 280, "y1": 440,
 		 "scan direction": "x"
 		},
 		{
 		 "name": "xxxxxxxxx",
 		 "start frame": 817,
 		 "end frame": 1060,
-		 "x0": 220, "x1": 460,
-		 "y0": 280, "y1": 460,
+		 "x0": 260, "x1": 460,
+		 "y0": 280, "y1": 440,
 		 "scan direction": "x"
 		},
 		{
 		 "name": "facts",
 		 "start frame": 1061,
-		 "end frame": 1096,
-		 "x0": 500, "x1": 540,
-		 "y0": 20, "y1": 360,
+		 "end frame": 1062,
+		 "x0": 500, "x1": 560,
+		 "y0": 200, "y1": 240,
+		 "scan direction": "y"
+		},
+		{
+		 "name": "fb quiz",
+		 "start frame": 1063,
+		 "end frame": 1098,
+		 "x0": 500, "x1": 560,
+		 "y0": 260, "y1": 440,
 		 "scan direction": "y"
 		}
+
 
 	],
 	"tracker config": {
