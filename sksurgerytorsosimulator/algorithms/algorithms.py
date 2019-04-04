@@ -1,7 +1,7 @@
+"""Functions for sksurgerytorsosimaulator"""
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
 from cv2 import randn
-"""Functions for sksurgerytorsosimaulator"""
 
 def configure_tracker(config):
     """
@@ -20,7 +20,8 @@ def configure_tracker(config):
     if tracker_type in "aruco":
         tracker = ArUcoTracker(config)
 
-    tracker.start_tracking()
+    if tracker_type not in "dummy":
+        tracker.start_tracking()
     return tracker
 
 
@@ -36,7 +37,6 @@ def lookupimage(usbuffer, pts):
         if pts[0] < usbuffer.get("x1"):
             if pts[1] > usbuffer.get("y0"):
                 if pts[1] < usbuffer.get("y1"):
-                    #do it by x, as in general we have more pixels that way
                     pdiff = 0
                     if usbuffer.get("scan direction") == "x":
                         diff = pts[0] - usbuffer.get("x0")

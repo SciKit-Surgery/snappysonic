@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-Setup for snappy-torso-simulator
+Setup for scikit-torso-simulator
 """
 
 from setuptools import setup, find_packages
@@ -11,13 +11,13 @@ with open('README.rst') as f:
     long_description = f.read()
 
 setup(
-    name='snappy-torso-simulator',
+    name='scikit-surgerytorsosimulator',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    description='snappy-torso-simulator provides an application to simulate an ultrasound probe moving over a body torso, it is intended for public engagement events"',
+    description='scikit-surgerytorsosimulator provides an application to simulate an ultrasound probe moving over a body torso, it is intended for public engagement events"',
     long_description=long_description,
     long_description_content_type='text/x-rst',
-    url='https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/snappytorsosimulator',
+    url='https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator',
     author='Stephen Thompson',
     author_email='s.thompson@ucl.ac.uk',
     license='BSD-3 license',
@@ -62,7 +62,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'snappytorsosimulator=snappytorsosimulator.__main__:main',
+            'sksurgerytorsosimulator=sksurgerytorsosimulator.__main__:main',
         ],
     },
 )

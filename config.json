@@ -3,35 +3,35 @@
 	"default image": "data/logo.png",
 	"buffer descriptions": [
 		{
-		 "name": "glove",
+		 "name": "xxxx",
 		 "start frame": 0,
 		 "end frame": 284,
 		 "x0": 20, "x1": 200,
-		 "y0": 20, "y1": 160,
+		 "y0": 200, "y1": 260,
 		 "scan direction": "x"
 		},
 		{
-		 "name": "caterpillar",
+		 "name": "xxxxxx",
 		 "start frame": 285,
 		 "end frame": 560,
 		 "x0": 220, "x1": 460,
-		 "y0": 20, "y1": 160,
+		 "y0": 200, "y1": 260,
 		 "scan direction": "x"
 		},
 		{
-		 "name": "unknown",
+		 "name": "xxx",
 		 "start frame": 561,
 		 "end frame": 816,
 		 "x0": 20, "x1": 200,
-		 "y0": 200, "y1": 360,
+		 "y0": 280, "y1": 460,
 		 "scan direction": "x"
 		},
 		{
-		 "name": "orange",
+		 "name": "xxxxxxxxx",
 		 "start frame": 817,
 		 "end frame": 1060,
 		 "x0": 220, "x1": 460,
-		 "y0": 200, "y1": 360,
+		 "y0": 280, "y1": 460,
 		 "scan direction": "x"
 		},
 		{
@@ -46,7 +46,7 @@
 	],
 	"tracker config": {
 		"tracker type": "aruco",
-		"video source": 0,
+		"video source": 2,
 		"debug": true,
 		"capture properties": {
 			"CAP_PROP_FRAME_WIDTH": 640,
