@@ -7,6 +7,7 @@ from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
                                                            check_us_buffer)
 from math import floor
 from numpy import zeros, uint8
+import pytest
 
 
 def test_configure_tracker():
@@ -52,5 +53,48 @@ def test_lookupimage():
     assert ret == False
 
 
-if __name__ == '__main__':
-    test_lookupimage()
+def test_noisy():
+    timage = zeros((10,10,1), uint8)
+    image = noisy(timage)
+
+def test_check_us_buffer():
+    tbuffer={}
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"name" : "a name"})
+     
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"start frame" : 0})
+
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"end frame" : 0})
+
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"x0" : 0})
+
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"x1" : 0})
+
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"y0" : 0})
+
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"y1" : 0})
+
+    with pytest.raises(KeyError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"scan direction" : "z"})
+
+    with pytest.raises(ValueError):
+        check_us_buffer(tbuffer)
+    tbuffer.update({"scan direction" : "x"})
+
+    check_us_buffer(tbuffer)
+
+

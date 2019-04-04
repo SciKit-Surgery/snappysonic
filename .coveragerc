@@ -1,6 +1,6 @@
 [run]
 omit = 
-        ./snappytorsosimulator/_version.py
-        ./snappytorsosimulator/__init__.py
-        ./snappytorsosimulator/__main__.py
-        ./snappytorsosimulator/ui/snappytorsosimulator_command_line.py
+        ./sksurgerytorsosimulator/_version.py
+        ./sksurgerytorsosimulator/__init__.py
+        ./sksurgerytorsosimulator/__main__.py
+        ./sksurgerytorsosimulator/ui/sksurgerytorsosimulator_command_line.py
