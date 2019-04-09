@@ -29,52 +29,20 @@ class OverlayApp(OverlayBaseApp):
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
-        self._video_buffers = []
+        self._fill_video_buffers(config)
         #maybe ._video_buffers is a list of dictionary,
         #each contains a video buffer, a description, and
         #and an extent
         frame_counter = 0
-
-        if "buffer descriptions" in config:
-            for usbuffer in config.get("buffer descriptions"):
-                check_us_buffer(usbuffer)
-                start_frame = usbuffer.get("start frame")
-                end_frame = usbuffer.get("end frame")
-                tempbuffer = []
-                if start_frame == frame_counter:
-                    while frame_counter <= end_frame:
-                        ret, image = self.video_source.read()
-                        if not ret:
-                            raise ValueError("Failed Reading video file",
-                                             config.get("ultrasound buffer"))
-
-                        frame_counter = frame_counter + 1
-                        tempbuffer.append(image)
-                print("adding frame ", len(tempbuffer), " images to buffer ",
-                      usbuffer.get("name"))
-                usbuffer.update({"buffer" : tempbuffer})
-
-                self._video_buffers.append(usbuffer)
-
-
+   
         self._tracker = None
 
         if "tracker config" in config:
             self._tracker = configure_tracker(config.get("tracker config"))
 
-        #this is a bit of a hack. Is there a better way? It assumes we're using
-        #ARuCo
-        _, bgimage = self._tracker._capture.read()
 
-        self._backgroundimage = zeros((bgimage.shape), uint8)
-        if "buffer descriptions" in config:
-            for usbuffer in config.get("buffer descriptions"):
-                pt0 = (usbuffer.get("x0"), usbuffer.get("y0"))
-                pt1 = (usbuffer.get("x1"), usbuffer.get("y1"))
-                rectangle(self._backgroundimage, pt0, pt1, [255, 255, 255])
-                putText(self._backgroundimage, usbuffer.get("name"), pt0, 0,
-                        1.0, [255, 255, 255])
-
+        self._backgroundimage = self._create_background_image()
+        
         self._defaultimage = None
         if "default image" in config:
             self._defaultimage = imread(config.get("default image"))
@@ -92,17 +60,9 @@ class OverlayApp(OverlayBaseApp):
         #self.vtk_overlay_window._RenderWindow.Render()
 
     def _get_image_with_tracking(self):
-        """Internal method to move the rendered models in
-        some interesting way
-        #Iterate through the rendered models
-        for actor in \
-                self.vtk_overlay_window.get_foreground_renderer().GetActors():
-            #get the current orientation
-            orientation = actor.GetOrientation()
-            #increase the rotation around the z-axis by 1.0 degrees
-            orientation = [orientation[0], orientation[1], orientation[2] + 1.0]
-            #add update the model's orientation
-            actor.SetOrientation(orientation)
+        """
+        Internal method to get an image from the video
+        buffer based on the tracker position
         """
         port_handles, _, _, tracking, _ = self._tracker.get_frame()
 
@@ -127,3 +87,44 @@ class OverlayApp(OverlayBaseApp):
         temping3 = self._defaultimage.copy()
         noise = noisy(temping2)
         return noise + temping3
+
+    def _fill_video_buffers(self, config):
+        """
+        internal method to fill video buffers
+        """
+        if "buffer descriptions" in config:
+            for usbuffer in config.get("buffer descriptions"):
+                check_us_buffer(usbuffer)
+                start_frame = usbuffer.get("start frame")
+                end_frame = usbuffer.get("end frame")
+                tempbuffer = []
+                if start_frame == frame_counter:
+                    while frame_counter <= end_frame:
+                        ret, image = self.video_source.read()
+                        if not ret:
+                            raise ValueError("Failed Reading video file",
+                                             config.get("ultrasound buffer"))
+
+                        frame_counter = frame_counter + 1
+                        tempbuffer.append(image)
+                print("adding frame ", len(tempbuffer), " images to buffer ",
+                      usbuffer.get("name"))
+                usbuffer.update({"buffer" : tempbuffer})
+
+                self._video_buffers.append(usbuffer)
+
+    def _create_background_image(self):
+        """
+        Creates a backgound image on which we can draw tracking information.
+        """
+        #this is a bit of a hack. Is there a better way? It assumes we're using
+        #ARuCo
+        _, bgimage = self._tracker._capture.read()
+        zeros((bgimage.shape), uint8)
+        if "buffer descriptions" in config:
+            for usbuffer in config.get("buffer descriptions"):
+                pt0 = (usbuffer.get("x0"), usbuffer.get("y0"))
+                pt1 = (usbuffer.get("x1"), usbuffer.get("y1"))
+                rectangle(self._backgroundimage, pt0, pt1, [255, 255, 255])
+                putText(self._backgroundimage, usbuffer.get("name"), pt0, 0,
+                        1.0, [255, 255, 255])
