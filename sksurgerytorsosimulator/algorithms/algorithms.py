@@ -1,4 +1,5 @@
 """Functions for sksurgerytorsosimaulator"""
+from numpy import inf
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
 from cv2 import randn
@@ -93,3 +94,33 @@ def check_us_buffer(usbuffer):
     direction = usbuffer.get("scan direction")
     if direction not in ("x", "y"):
         raise ValueError("scan direction must be either x or y")
+
+def get_extents(config):
+    """
+    Reads the geometry from a configuration and
+    returns the extents of the buffer
+    """
+    min_x = inf
+    max_x = -inf
+    min_y = inf
+    max_y = -inf
+
+    if "buffer descriptions" in config:
+        for usbuffer in config.get("buffer descriptions"):
+            if usbuffer.get("x0") > max_x:
+                max_x = usbuffer.get("x0")
+            if usbuffer.get("x1") > max_x:
+                max_x = usbuffer.get("x1")
+            if usbuffer.get("x0") < min_x:
+                max_x = usbuffer.get("x0")
+            if usbuffer.get("x1") < min_x:
+                max_x = usbuffer.get("x1")
+            if usbuffer.get("y0") > max_y:
+                max_x = usbuffer.get("y0")
+            if usbuffer.get("y1") > max_y:
+                max_x = usbuffer.get("y1")
+            if usbuffer.get("y0") < min_y:
+                max_x = usbuffer.get("y0")
+            if usbuffer.get("y1") < min_y:
+                max_x = usbuffer.get("y1")
+    return min_x, max_x, min_y, max_y

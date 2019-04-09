@@ -128,4 +128,5 @@ class OverlayApp(OverlayBaseApp):
                 rectangle(bgimage, pt0, pt1, [255, 255, 255])
                 putText(bgimage, usbuffer.get("name"), pt0, 0,
                         1.0, [255, 255, 255])
+
         return bgimage

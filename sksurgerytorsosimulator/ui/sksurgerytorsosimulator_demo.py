@@ -14,11 +14,11 @@ def run_demo(configfile):
 
     configurer = ConfigurationManager(configfile)
 
+    app = QApplication([])
+
     configuration = configurer.get_copy()
 
     viewer = OverlayApp(configuration)
-
-    app = QApplication([])
 
     viewer.start()
 
