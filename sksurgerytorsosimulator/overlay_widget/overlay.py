@@ -29,20 +29,16 @@ class OverlayApp(OverlayBaseApp):
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
-        self._fill_video_buffers(config)
-        #maybe ._video_buffers is a list of dictionary,
-        #each contains a video buffer, a description, and
-        #and an extent
-        frame_counter = 0
-   
+        self._video_buffers = self._fill_video_buffers(config)
+
         self._tracker = None
 
         if "tracker config" in config:
             self._tracker = configure_tracker(config.get("tracker config"))
 
 
-        self._backgroundimage = self._create_background_image()
-        
+        self._backgroundimage = self._create_background_image(config)
+
         self._defaultimage = None
         if "default image" in config:
             self._defaultimage = imread(config.get("default image"))
@@ -92,6 +88,8 @@ class OverlayApp(OverlayBaseApp):
         """
         internal method to fill video buffers
         """
+        vidbuffers = []
+        frame_counter = 0
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
                 check_us_buffer(usbuffer)
@@ -111,20 +109,23 @@ class OverlayApp(OverlayBaseApp):
                       usbuffer.get("name"))
                 usbuffer.update({"buffer" : tempbuffer})
 
-                self._video_buffers.append(usbuffer)
+                vidbuffers.append(usbuffer)
 
-    def _create_background_image(self):
+        return vidbuffers
+
+    def _create_background_image(self, config):
         """
         Creates a backgound image on which we can draw tracking information.
         """
         #this is a bit of a hack. Is there a better way? It assumes we're using
         #ARuCo
         _, bgimage = self._tracker._capture.read()
-        zeros((bgimage.shape), uint8)
+        bgimage = zeros((bgimage.shape), uint8)
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
                 pt0 = (usbuffer.get("x0"), usbuffer.get("y0"))
                 pt1 = (usbuffer.get("x1"), usbuffer.get("y1"))
-                rectangle(self._backgroundimage, pt0, pt1, [255, 255, 255])
-                putText(self._backgroundimage, usbuffer.get("name"), pt0, 0,
+                rectangle(bgimage, pt0, pt1, [255, 255, 255])
+                putText(bgimage, usbuffer.get("name"), pt0, 0,
                         1.0, [255, 255, 255])
+        return bgimage
