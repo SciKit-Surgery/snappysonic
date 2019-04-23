@@ -45,6 +45,11 @@ class OverlayApp(OverlayBaseApp):
         else:
             self._defaultimage = self._backgroundimage.copy()
 
+        self._logger = None
+        #we could implement something like this?
+        #if "log directory" in config:
+        #    self._logger = sksurgerydatasaver(config.get("log directory"))
+
     def update(self):
         """Update the background renderer with a new frame,
         move the model and render"""
@@ -53,7 +58,6 @@ class OverlayApp(OverlayBaseApp):
 
         self.vtk_overlay_window.set_video_image(image)
         self.vtk_overlay_window.Render()
-        #self.vtk_overlay_window._RenderWindow.Render()
 
     def _get_image_with_tracking(self):
         """
@@ -61,6 +65,10 @@ class OverlayApp(OverlayBaseApp):
         buffer based on the tracker position
         """
         port_handles, _, _, tracking, _ = self._tracker.get_frame()
+
+        #and this
+        #if self._logger:
+        #     self._logger.write(timestamps, tracking)
 
         tempimg = self._backgroundimage.copy()
 
