@@ -74,9 +74,9 @@ class OverlayApp(OverlayBaseApp):
 
         pts = None
         if port_handles:
-            for i in range(len(port_handles)):
-                if port_handles[i] == 0:
-                    pts = (tracking[i][0, 3], tracking[i][1, 3])
+            for index, port_hdl in enumerate(port_handles):
+                if port_hdl == 0:
+                    pts = (tracking[index][0, 3], tracking[index][1, 3])
                     circle(tempimg, pts, 5, [255, 255, 255])
 
         imshow('tracking', tempimg)
