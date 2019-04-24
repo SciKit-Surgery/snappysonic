@@ -7,7 +7,8 @@ from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
                                                            lookupimage, noisy,
-                                                           check_us_buffer)
+                                                           check_us_buffer,
+                                                           get_bg_image_size)
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
@@ -36,7 +37,7 @@ class OverlayApp(OverlayBaseApp):
         if "tracker config" in config:
             self._tracker = configure_tracker(config.get("tracker config"))
 
-
+        self._bgimage_offsets = (0, 0)
         self._backgroundimage = self._create_background_image(config)
 
         self._defaultimage = None
@@ -76,8 +77,11 @@ class OverlayApp(OverlayBaseApp):
         if port_handles:
             for index, port_hdl in enumerate(port_handles):
                 if port_hdl == 0:
-                    pts = (tracking[index][0, 3], tracking[index][1, 3])
-                    circle(tempimg, pts, 5, [255, 255, 255])
+                    pts = (int(tracking[index][0, 3]),
+                           int(tracking[index][1, 3]))
+                    off_pts = (int(pts[0] - self._bgimage_offsets[0]),
+                               int(pts[1] - self._bgimage_offsets[1]))
+                    circle(tempimg, off_pts, 5, [255, 255, 255])
 
         imshow('tracking', tempimg)
 
@@ -127,12 +131,18 @@ class OverlayApp(OverlayBaseApp):
         """
         #this is a bit of a hack. Is there a better way? It assumes we're using
         #ARuCo
-        _, bgimage = self._tracker._capture.read()
-        bgimage = zeros((bgimage.shape), uint8)
+
+        bg_image_size = [480, 640]
+        if "buffer descriptions" in config:
+            self._bgimage_offsets, bg_image_size = get_bg_image_size(config)
+
+        bgimage = zeros((bg_image_size), uint8)
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
-                pt0 = (usbuffer.get("x0"), usbuffer.get("y0"))
-                pt1 = (usbuffer.get("x1"), usbuffer.get("y1"))
+                pt0 = (usbuffer.get("x0") - self._bgimage_offsets[0],
+                       usbuffer.get("y0") - self._bgimage_offsets[1])
+                pt1 = (usbuffer.get("x1") - self._bgimage_offsets[0],
+                       usbuffer.get("y1") - self._bgimage_offsets[1])
                 rectangle(bgimage, pt0, pt1, [255, 255, 255])
                 putText(bgimage, usbuffer.get("name"), pt0, 0,
                         1.0, [255, 255, 255])

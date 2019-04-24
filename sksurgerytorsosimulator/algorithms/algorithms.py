@@ -1,5 +1,5 @@
 """Functions for sksurgerytorsosimaulator"""
-from numpy import inf
+from numpy import iinfo, int16
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
 from cv2 import randn
@@ -95,15 +95,15 @@ def check_us_buffer(usbuffer):
     if direction not in ("x", "y"):
         raise ValueError("scan direction must be either x or y")
 
-def get_extents(config):
+def get_bg_image_size(config):
     """
     Reads the geometry from a configuration and
     returns the extents of the buffer
     """
-    min_x = inf
-    max_x = -inf
-    min_y = inf
-    max_y = -inf
+    min_x = iinfo(int16).max
+    max_x = iinfo(int16).min
+    min_y = iinfo(int16).max
+    max_y = iinfo(int16).min
 
     if "buffer descriptions" in config:
         for usbuffer in config.get("buffer descriptions"):
@@ -112,15 +112,28 @@ def get_extents(config):
             if usbuffer.get("x1") > max_x:
                 max_x = usbuffer.get("x1")
             if usbuffer.get("x0") < min_x:
-                max_x = usbuffer.get("x0")
+                min_x = usbuffer.get("x0")
             if usbuffer.get("x1") < min_x:
-                max_x = usbuffer.get("x1")
+                min_x = usbuffer.get("x1")
             if usbuffer.get("y0") > max_y:
-                max_x = usbuffer.get("y0")
+                max_y = usbuffer.get("y0")
             if usbuffer.get("y1") > max_y:
-                max_x = usbuffer.get("y1")
+                max_y = usbuffer.get("y1")
             if usbuffer.get("y0") < min_y:
-                max_x = usbuffer.get("y0")
+                min_y = usbuffer.get("y0")
             if usbuffer.get("y1") < min_y:
-                max_x = usbuffer.get("y1")
-    return min_x, max_x, min_y, max_y
+                min_y = usbuffer.get("y1")
+    border_size = 20
+    if "border size" in config:
+        border_size = config.get("border size")
+
+    max_x = max_x + border_size
+    min_x = min_x - border_size
+
+    max_y = max_y + border_size
+    min_y = min_y - border_size
+
+    offsets = (min_x, min_y)
+    image_size = (max_y - min_y, max_x - min_x)
+
+    return offsets, image_size
