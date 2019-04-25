@@ -11,16 +11,14 @@ from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
 
 def run_demo(configfile):
     """ Run the application """
-    app = QApplication([])
 
     configurer = ConfigurationManager(configfile)
+
+    app = QApplication([])
 
     configuration = configurer.get_copy()
 
     viewer = OverlayApp(configuration)
-
-    #model_dir = '../models'
-    #viewer.add_vtk_models_from_dir(model_dir)
 
     viewer.start()
 

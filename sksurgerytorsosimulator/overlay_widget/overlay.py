@@ -7,7 +7,8 @@ from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
                                                            lookupimage, noisy,
-                                                           check_us_buffer)
+                                                           check_us_buffer,
+                                                           get_bg_image_size)
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
@@ -29,12 +30,78 @@ class OverlayApp(OverlayBaseApp):
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
-        self._video_buffers = []
-        #maybe ._video_buffers is a list of dictionary,
-        #each contains a video buffer, a description, and
-        #and an extent
-        frame_counter = 0
+        self._video_buffers = self._fill_video_buffers(config)
 
+        self._tracker = None
+
+        if "tracker config" in config:
+            self._tracker = configure_tracker(config.get("tracker config"))
+
+        self._bgimage_offsets = (0, 0)
+        self._backgroundimage = self._create_background_image(config)
+
+        self._defaultimage = None
+        if "default image" in config:
+            self._defaultimage = imread(config.get("default image"))
+        else:
+            self._defaultimage = self._backgroundimage.copy()
+
+        self._logger = None
+        #we could implement something like this?
+        #if "log directory" in config:
+        #    self._logger = sksurgerydatasaver(config.get("log directory"))
+
+    def update(self):
+        """Update the background renderer with a new frame,
+        move the model and render"""
+        #add a method to move the rendered models
+        image = self._get_image_with_tracking()
+
+        self.vtk_overlay_window.set_video_image(image)
+        self.vtk_overlay_window.Render()
+
+    def _get_image_with_tracking(self):
+        """
+        Internal method to get an image from the video
+        buffer based on the tracker position
+        """
+        port_handles, _, _, tracking, _ = self._tracker.get_frame()
+
+        #and this
+        #if self._logger:
+        #     self._logger.write(timestamps, tracking)
+
+        tempimg = self._backgroundimage.copy()
+
+        pts = None
+        if port_handles:
+            for index, port_hdl in enumerate(port_handles):
+                if port_hdl == 0:
+                    pts = (int(tracking[index][0, 3]),
+                           int(tracking[index][1, 3]))
+                    off_pts = (int(pts[0] - self._bgimage_offsets[0]),
+                               int(pts[1] - self._bgimage_offsets[1]))
+                    circle(tempimg, off_pts, 5, [255, 255, 255])
+
+        imshow('tracking', tempimg)
+
+        if pts:
+            for usbuffer in self._video_buffers:
+                inframe, image = lookupimage(usbuffer, pts)
+                if inframe:
+                    return image
+
+        temping2 = self._defaultimage.copy()
+        temping3 = self._defaultimage.copy()
+        noise = noisy(temping2)
+        return noise + temping3
+
+    def _fill_video_buffers(self, config):
+        """
+        internal method to fill video buffers
+        """
+        vidbuffers = []
+        frame_counter = 0
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
                 check_us_buffer(usbuffer)
@@ -54,76 +121,30 @@ class OverlayApp(OverlayBaseApp):
                       usbuffer.get("name"))
                 usbuffer.update({"buffer" : tempbuffer})
 
-                self._video_buffers.append(usbuffer)
+                vidbuffers.append(usbuffer)
 
+        return vidbuffers
 
-        self._tracker = None
-
-        if "tracker config" in config:
-            self._tracker = configure_tracker(config.get("tracker config"))
-
+    def _create_background_image(self, config):
+        """
+        Creates a backgound image on which we can draw tracking information.
+        """
         #this is a bit of a hack. Is there a better way? It assumes we're using
         #ARuCo
-        _, bgimage = self._tracker._capture.read()
 
-        self._backgroundimage = zeros((bgimage.shape), uint8)
+        bg_image_size = [480, 640]
+        if "buffer descriptions" in config:
+            self._bgimage_offsets, bg_image_size = get_bg_image_size(config)
+
+        bgimage = zeros((bg_image_size), uint8)
         if "buffer descriptions" in config:
             for usbuffer in config.get("buffer descriptions"):
-                pt0 = (usbuffer.get("x0"), usbuffer.get("y0"))
-                pt1 = (usbuffer.get("x1"), usbuffer.get("y1"))
-                rectangle(self._backgroundimage, pt0, pt1, [255, 255, 255])
-                putText(self._backgroundimage, usbuffer.get("name"), pt0, 0,
+                pt0 = (usbuffer.get("x0") - self._bgimage_offsets[0],
+                       usbuffer.get("y0") - self._bgimage_offsets[1])
+                pt1 = (usbuffer.get("x1") - self._bgimage_offsets[0],
+                       usbuffer.get("y1") - self._bgimage_offsets[1])
+                rectangle(bgimage, pt0, pt1, [255, 255, 255])
+                putText(bgimage, usbuffer.get("name"), pt0, 0,
                         1.0, [255, 255, 255])
 
-        self._defaultimage = None
-        if "default image" in config:
-            self._defaultimage = imread(config.get("default image"))
-        else:
-            self._defaultimage = self._backgroundimage.copy()
-
-    def update(self):
-        """Update the background renderer with a new frame,
-        move the model and render"""
-        #add a method to move the rendered models
-        image = self._get_image_with_tracking()
-
-        self.vtk_overlay_window.set_video_image(image)
-        self.vtk_overlay_window.Render()
-        #self.vtk_overlay_window._RenderWindow.Render()
-
-    def _get_image_with_tracking(self):
-        """Internal method to move the rendered models in
-        some interesting way
-        #Iterate through the rendered models
-        for actor in \
-                self.vtk_overlay_window.get_foreground_renderer().GetActors():
-            #get the current orientation
-            orientation = actor.GetOrientation()
-            #increase the rotation around the z-axis by 1.0 degrees
-            orientation = [orientation[0], orientation[1], orientation[2] + 1.0]
-            #add update the model's orientation
-            actor.SetOrientation(orientation)
-        """
-        port_handles, _, _, tracking, _ = self._tracker.get_frame()
-
-        tempimg = self._backgroundimage.copy()
-
-        pts = None
-        if port_handles:
-            for i in range(len(port_handles)):
-                if port_handles[i] == 0:
-                    pts = (tracking[i][0, 3], tracking[i][1, 3])
-                    circle(tempimg, pts, 5, [255, 255, 255])
-
-        imshow('tracking', tempimg)
-
-        if pts:
-            for usbuffer in self._video_buffers:
-                inframe, image = lookupimage(usbuffer, pts)
-                if inframe:
-                    return image
-
-        temping2 = self._defaultimage.copy()
-        temping3 = self._defaultimage.copy()
-        noise = noisy(temping2)
-        return noise + temping3
+        return bgimage

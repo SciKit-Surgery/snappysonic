@@ -1,7 +1,8 @@
+"""Functions for sksurgerytorsosimaulator"""
+from numpy import iinfo, int16
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
 from cv2 import randn
-"""Functions for sksurgerytorsosimaulator"""
 
 def configure_tracker(config):
     """
@@ -20,7 +21,8 @@ def configure_tracker(config):
     if tracker_type in "aruco":
         tracker = ArUcoTracker(config)
 
-    tracker.start_tracking()
+    if tracker_type not in "dummy":
+        tracker.start_tracking()
     return tracker
 
 
@@ -36,7 +38,6 @@ def lookupimage(usbuffer, pts):
         if pts[0] < usbuffer.get("x1"):
             if pts[1] > usbuffer.get("y0"):
                 if pts[1] < usbuffer.get("y1"):
-                    #do it by x, as in general we have more pixels that way
                     pdiff = 0
                     if usbuffer.get("scan direction") == "x":
                         diff = pts[0] - usbuffer.get("x0")
@@ -93,3 +94,46 @@ def check_us_buffer(usbuffer):
     direction = usbuffer.get("scan direction")
     if direction not in ("x", "y"):
         raise ValueError("scan direction must be either x or y")
+
+def get_bg_image_size(config):
+    """
+    Reads the geometry from a configuration and
+    returns the extents of the buffer
+    """
+    min_x = iinfo(int16).max
+    max_x = iinfo(int16).min
+    min_y = iinfo(int16).max
+    max_y = iinfo(int16).min
+
+    if "buffer descriptions" in config:
+        for usbuffer in config.get("buffer descriptions"):
+            if usbuffer.get("x0") > max_x:
+                max_x = usbuffer.get("x0")
+            if usbuffer.get("x1") > max_x:
+                max_x = usbuffer.get("x1")
+            if usbuffer.get("x0") < min_x:
+                min_x = usbuffer.get("x0")
+            if usbuffer.get("x1") < min_x:
+                min_x = usbuffer.get("x1")
+            if usbuffer.get("y0") > max_y:
+                max_y = usbuffer.get("y0")
+            if usbuffer.get("y1") > max_y:
+                max_y = usbuffer.get("y1")
+            if usbuffer.get("y0") < min_y:
+                min_y = usbuffer.get("y0")
+            if usbuffer.get("y1") < min_y:
+                min_y = usbuffer.get("y1")
+    border_size = 20
+    if "border size" in config:
+        border_size = config.get("border size")
+
+    max_x = max_x + border_size
+    min_x = min_x - border_size
+
+    max_y = max_y + border_size
+    min_y = min_y - border_size
+
+    offsets = (min_x, min_y)
+    image_size = (max_y - min_y, max_x - min_x)
+
+    return offsets, image_size
