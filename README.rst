@@ -15,8 +15,8 @@ scikit-torso-simulator
     :target: https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator/commits/master
     :alt: Test coverage
 
-.. image:: https://readthedocs.org/projects/scikit-surgerytorsosimulator/badge/?version=latest
-    :target: http://scikit-surgerytorsosimulator.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/scikit-surgery-torso-simulator/badge/?version=latest
+    :target: http://scikit-surgery-torso-simulator.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
 
