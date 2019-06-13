@@ -54,20 +54,6 @@ def lookupimage(usbuffer, pts):
 
     return False, None
 
-
-def noisy(image):
-    """
-    Creates a noise image, based on the dimensions of the
-    passed image.
-    param: the image to define size and channels of output
-    returns: a noisy image
-    """
-    mean = 0
-    stddev = (50, 5, 5)
-    randn(image, (mean), (stddev))
-    return image
-
-
 def check_us_buffer(usbuffer):
     """
     Checks that all ultrasound buffer contains all required key values.

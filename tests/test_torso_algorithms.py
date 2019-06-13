@@ -6,8 +6,9 @@ from math import floor
 from numpy import zeros, uint8
 import pytest
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
-                                                           lookupimage, noisy,
+                                                           lookupimage,
                                                            check_us_buffer)
+from sksurgerytorsosimulator.algorithms.logo import noisy
 
 
 def test_configure_tracker():
