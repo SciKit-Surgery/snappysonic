@@ -2,7 +2,7 @@
 
 """snappy-torso-simulator tests"""
 
-from cv2 import imwrite
+from numpy import uint8
 from sksurgerytorsosimulator.algorithms.logo import WeissLogo
 
 def test_logo():
@@ -11,7 +11,13 @@ def test_logo():
     """
     logo = WeissLogo()
 
-    #imwrite("cleanlog.png", logo.get_logo())
-    imwrite("noisylog0.png", logo.get_noisy_logo())
-    imwrite("noisylog1.png", logo.get_noisy_logo())
-    imwrite("noisylog2.png", logo.get_noisy_logo())
+    image = logo.get_logo()
+
+    assert image.shape == (331, 331, 3)
+    assert image.dtype == uint8
+
+    logo = WeissLogo(400)
+    image = logo.get_noisy_logo()
+
+    assert image.shape == (400, 400, 3)
+    assert image.dtype == uint8
