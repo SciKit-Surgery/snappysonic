@@ -8,6 +8,7 @@ def configure_tracker(config):
     Configures a scikit-surgery tracker based on the passed config
     param: a tracker configuration dictionary
     returns: The tracker
+    raises: Key Error
     """
 
     if "tracker type" not in config:

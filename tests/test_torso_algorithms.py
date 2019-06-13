@@ -21,6 +21,29 @@ def test_configure_tracker():
         }
     _ = configure_tracker(settings)
 
+    settings = {
+        "invalid" : "config"
+        }
+
+    with pytest.raises(KeyError):
+        _ = configure_tracker(settings)
+
+    settings = {
+        "tracker type" : "aruco",
+        "video source" : "data/nofile.xxxx",
+        "aruco dictionary" : "DICT_6X6_250"
+        }
+
+    with pytest.raises(OSError):
+        _ = configure_tracker(settings)
+
+    settings = {
+        "tracker type" : "aruco",
+        "video source" : "data/usbuffer.mp4",
+        "aruco dictionary" : "DICT_6X6_250"
+        }
+
+    _ = configure_tracker(settings)
 
 def test_lookupimage():
     """
@@ -33,6 +56,8 @@ def test_lookupimage():
         tbuffer.update({"x1" : i % 2 * 200 + 100})
         tbuffer.update({"y0" : floor(i/2) * 200})
         tbuffer.update({"y1" : floor(i/2) * 200 + 100})
+        if i == 3:
+            tbuffer.update({"scan direction" : "x"})
 
         timagebuffer = []
         timage = zeros((10, 10, 1), uint8)
@@ -52,6 +77,18 @@ def test_lookupimage():
     assert frame.shape == (10, 10, 1)
     ret, _ = lookupimage(usbuffers[3], pts)
     assert not ret
+
+    pts = (265, 250)
+    ret, _ = lookupimage(usbuffers[0], pts)
+    assert not ret
+    ret, _ = lookupimage(usbuffers[1], pts)
+    assert not ret
+    ret, _ = lookupimage(usbuffers[2], pts)
+    assert not ret
+    ret, frame = lookupimage(usbuffers[3], pts)
+    assert ret
+    assert frame.shape == (10, 10, 1)
+
 
 
 def test_noisy():
