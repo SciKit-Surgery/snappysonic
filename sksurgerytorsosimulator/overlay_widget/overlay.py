@@ -3,15 +3,13 @@
 """Main loop for tracking visualisation"""
 from sys import version_info
 from cv2 import (rectangle, putText, circle, imread, imshow)
-from numpy import zeros, uint8, copy
+from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
-                                                           lookupimage, 
+                                                           lookupimage,
                                                            check_us_buffer,
                                                            get_bg_image_size)
 from sksurgerytorsosimulator.algorithms.logo import WeissLogo
-from vtk.util.numpy_support import vtk_to_numpy, numpy_to_vtk
-from vtk import vtkImageImport
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,
@@ -44,7 +42,7 @@ class OverlayApp(OverlayBaseApp):
         self._backgroundimage = self._create_background_image(config)
 
         self._weiss = None
-        self._defaultimage = zeros(0) 
+        self._defaultimage = zeros(0, dtype=uint8)
         if "default image" in config:
             self._defaultimage = imread(config.get("default image"))
         else:
@@ -95,14 +93,8 @@ class OverlayApp(OverlayBaseApp):
                 if inframe:
                     return image
 
-        print (self._defaultimage.shape)
         if self._defaultimage.shape == (0,):
-            from cv2 import imwrite
-            image = self._weiss.get_noisy_logo()
-            imwrite("temp.png" ,  image)
-            print ("Making a noisy logo!", image.shape, image)
-
-            return image
+            return self._weiss.get_noisy_logo()
 
         return self._defaultimage
 

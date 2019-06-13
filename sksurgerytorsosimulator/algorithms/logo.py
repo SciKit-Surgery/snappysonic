@@ -1,6 +1,6 @@
 """Functions for sksurgerytorsosimaulator"""
 from math import cos, pi
-from numpy import full, int16, int32, ubyte, uint8
+from numpy import full, int32, uint8
 from cv2 import randn, fillConvexPoly, circle
 
 def noisy(image):
@@ -25,7 +25,7 @@ class WeissLogo():
         param: the image size in pixels
         """
 
-        thickness = image_size / 7.5
+        thickness = image_size/8.5
 
         lblength = image_size/1.4
 
@@ -36,7 +36,7 @@ class WeissLogo():
 
         qtr_pi_cos = cos(-pi/4)
 
-        self._background = full((uint8(image_size), uint8(image_size), 3),
+        self._background = full((int32(image_size), int32(image_size), 3),
                                 [125, 98, 0], dtype=uint8)
 
         #the ends of each bar, going clockwise from top centre

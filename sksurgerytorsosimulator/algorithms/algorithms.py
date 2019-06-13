@@ -2,7 +2,6 @@
 from numpy import iinfo, int16
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
-from cv2 import randn
 
 def configure_tracker(config):
     """
