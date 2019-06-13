@@ -1,7 +1,6 @@
 # coding=utf-8
 
 """Main loop for tracking visualisation"""
-from sys import version_info
 from cv2 import (rectangle, putText, circle, imread, imshow)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
@@ -23,11 +22,7 @@ class OverlayApp(OverlayBaseApp):
 
         if "ultrasound buffer" in config:
             #and call the constructor for the base class
-            if version_info > (3, 0):
-                super().__init__(config.get("ultrasound buffer"))
-            else:
-                #super doesn't work the same in py2.7
-                OverlayBaseApp.__init__(self, config.get("ultrasound buffer"))
+            super().__init__(config.get("ultrasound buffer"))
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
