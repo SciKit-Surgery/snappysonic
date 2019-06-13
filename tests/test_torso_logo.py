@@ -2,8 +2,8 @@
 
 """snappy-torso-simulator tests"""
 
-from numpy import uint8
-from sksurgerytorsosimulator.algorithms.logo import WeissLogo
+from numpy import uint8, zeros
+from sksurgerytorsosimulator.algorithms.logo import WeissLogo, noisy
 
 def test_logo():
     """
@@ -21,3 +21,11 @@ def test_logo():
 
     assert image.shape == (400, 400, 3)
     assert image.dtype == uint8
+
+
+def test_noisy():
+    """
+    tests function to add noise to a colour image.
+    """
+    timage = zeros((10, 10, 1), uint8)
+    _ = noisy(timage)

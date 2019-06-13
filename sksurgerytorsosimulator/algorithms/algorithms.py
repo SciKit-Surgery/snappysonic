@@ -97,18 +97,18 @@ def get_bg_image_size(config):
                 max_x = usbuffer.get("x0")
             if usbuffer.get("x1") > max_x:
                 max_x = usbuffer.get("x1")
-            if usbuffer.get("x0") < min_x:
-                min_x = usbuffer.get("x0")
             if usbuffer.get("x1") < min_x:
                 min_x = usbuffer.get("x1")
+            if usbuffer.get("x0") < min_x:
+                min_x = usbuffer.get("x0")
             if usbuffer.get("y0") > max_y:
                 max_y = usbuffer.get("y0")
             if usbuffer.get("y1") > max_y:
                 max_y = usbuffer.get("y1")
-            if usbuffer.get("y0") < min_y:
-                min_y = usbuffer.get("y0")
             if usbuffer.get("y1") < min_y:
                 min_y = usbuffer.get("y1")
+            if usbuffer.get("y0") < min_y:
+                min_y = usbuffer.get("y0")
     border_size = 20
     if "border size" in config:
         border_size = config.get("border size")
