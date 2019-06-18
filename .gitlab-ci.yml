@@ -33,19 +33,19 @@ build linux installer:
   <<: *build-skip-template
   <<: *build-install-template
   tags:
-    - shared-linux
+    - shared-linux, gui
 
 build mac installer:
   <<: *build-skip-template
   <<: *build-install-template
   tags:
-    - shared-mac
+    - shared-mac, gui
 
 build windows installer:
   <<: *build-skip-template
   <<: *build-install-template
   tags:
-    - shared-win
+    - shared-win, gui
 
 build docs:
   <<: *build-skip-template
