@@ -60,8 +60,9 @@ build docs:
 
 test Linux:
   stage: test
-  LD_LIBRARY_PATH: ${CI_PROJECT_DIR}/.tox/py36/lib/python3.6/site-packages/PySide2/Qt/plugins/platforms
-  DISPLAY: localhost:1
+  variables:
+    LD_LIBRARY_PATH: ${CI_PROJECT_DIR}/.tox/py36/lib/python3.6/site-packages/PySide2/Qt/plugins/platforms
+    DISPLAY: localhost:1
   script:
     - tox
   tags:
