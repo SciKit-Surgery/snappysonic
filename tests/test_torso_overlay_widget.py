@@ -6,9 +6,7 @@ from PySide2.QtWidgets import QApplication
 import pytest
 from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
 
-APP = QApplication([])
-
-def test_init_no_logo():
+def test_init_no_logo(setup_qt):
     """
     Test we can initialise widget, and run with default image
     """
@@ -46,7 +44,7 @@ def test_init_no_logo():
     overlay_widget = OverlayApp(config)
     overlay_widget.update()
 
-def test_and_run_with_logo():
+def test_and_run_with_logo(setup_qt):
     """
     Test we can initialise widget and run update
     """
@@ -76,7 +74,7 @@ def test_and_run_with_logo():
     overlay_widget.update()
 
 
-def test_and_run_with_buffer_data():
+def test_and_run_with_buffer_data(setup_qt):
     """
     Test we can initialise widget and run update,
     getting and image from the usbuffer
