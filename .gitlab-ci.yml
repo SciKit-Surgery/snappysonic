@@ -5,7 +5,6 @@ variables:
 
 stages:
   - build
-  - installer
   - test
   - deploy
 
@@ -26,26 +25,6 @@ stages:
     paths:
       - dist/
     expire_in: 1 week
-
-# The win/mac/linux build stages inherit settings
-# from build-install-template
-build linux installer:
-  <<: *build-skip-template
-  <<: *build-install-template
-  tags:
-    - shared-linux, gui
-
-build mac installer:
-  <<: *build-skip-template
-  <<: *build-install-template
-  tags:
-    - shared-mac, gui
-
-build windows installer:
-  <<: *build-skip-template
-  <<: *build-install-template
-  tags:
-    - shared-win, gui
 
 build docs:
   <<: *build-skip-template
