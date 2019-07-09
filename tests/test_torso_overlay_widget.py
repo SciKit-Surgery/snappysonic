@@ -2,7 +2,6 @@
 
 """snappy-torso-simulator tests"""
 
-from PySide2.QtWidgets import QApplication
 import pytest
 from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
 
