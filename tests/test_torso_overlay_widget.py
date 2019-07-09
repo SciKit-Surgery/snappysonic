@@ -6,9 +6,9 @@ from PySide2.QtWidgets import QApplication
 import pytest
 from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
 
-def test_init_no_logo(setup_qt):
+def test_error_on_ultrasound_buffer(setup_qt):
     """
-    Test we can initialise widget, and run with default image
+    Test we get a key error if no usbuffer 
     """
     config = {
         "default image": "data/logo.png",
@@ -35,9 +35,62 @@ def test_init_no_logo(setup_qt):
     with pytest.raises(KeyError):
         overlay_widget = OverlayApp(config)
 
+def test_error_on_invalid_buffer(setup_qt):
+    """
+    Test we get a value error if we can't read the us buffer
+    """
+    config = {
+        "default image": "data/logo.png",
+        "buffer descriptions": [
+            {
+                "name": "xxxx",
+                "start frame": 0,
+                "end frame": 284,
+                "x0": 40, "x1": 240,
+                "y0": 200, "y1": 260,
+                "scan direction": "x"
+            }],
+        "tracker config": {
+            "tracker type": "aruco",
+            "video source": "data/aruco_tag.avi",
+            "debug": True,
+            "capture properties": {
+                "CAP_PROP_FRAME_WIDTH": 640,
+                "CAP_PROP_FRAME_HEIGHT": 480
+            }
+        }
+    }
+
     config.update({"ultrasound buffer": "data/aruco_tag.avi"})
     with pytest.raises(ValueError):
         overlay_widget = OverlayApp(config)
+
+
+def test_init_no_logo(setup_qt):
+    """
+    Test we can initialise widget, and run with default image set
+    """
+    config = {
+        "default image": "data/logo.png",
+        "buffer descriptions": [
+            {
+                "name": "xxxx",
+                "start frame": 0,
+                "end frame": 284,
+                "x0": 40, "x1": 240,
+                "y0": 200, "y1": 260,
+                "scan direction": "x"
+            }],
+        "tracker config": {
+            "tracker type": "aruco",
+            "video source": "data/aruco_tag.avi",
+            "debug": True,
+            "capture properties": {
+                "CAP_PROP_FRAME_WIDTH": 640,
+                "CAP_PROP_FRAME_HEIGHT": 480
+            }
+        }
+    }
 
     config.update({"ultrasound buffer": "data/usbuffer.mp4"})
 
@@ -46,7 +99,8 @@ def test_init_no_logo(setup_qt):
 
 def test_and_run_with_logo(setup_qt):
     """
-    Test we can initialise widget and run update
+    Test we can initialise widget and run update, 
+    when we haven't set default image.
     """
     config = {
         "ultrasound buffer": "data/usbuffer.mp4",
@@ -77,7 +131,7 @@ def test_and_run_with_logo(setup_qt):
 def test_and_run_with_buffer_data(setup_qt):
     """
     Test we can initialise widget and run update,
-    getting and image from the usbuffer
+    getting an image from the usbuffer
     """
     config = {
         "ultrasound buffer": "data/usbuffer.mp4",
