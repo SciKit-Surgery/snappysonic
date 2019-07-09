@@ -7,7 +7,7 @@ from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
 
 def test_error_on_ultrasound_buffer(setup_qt):
     """
-    Test we get a key error if no usbuffer 
+    Test we get a key error if no usbuffer
     """
     _app = setup_qt
 
@@ -34,12 +34,13 @@ def test_error_on_ultrasound_buffer(setup_qt):
     }
 
     with pytest.raises(KeyError):
-        overlay_widget = OverlayApp(config)
+        _overlay_widget = OverlayApp(config)
 
 def test_error_on_invalid_buffer(setup_qt):
     """
     Test we get a value error if we can't read the us buffer
     """
+    _app = setup_qt
     config = {
         "default image": "data/logo.png",
         "buffer descriptions": [
@@ -64,13 +65,14 @@ def test_error_on_invalid_buffer(setup_qt):
 
     config.update({"ultrasound buffer": "data/aruco_tag.avi"})
     with pytest.raises(ValueError):
-        overlay_widget = OverlayApp(config)
+        _overlay_widget = OverlayApp(config)
 
 
 def test_init_no_logo(setup_qt):
     """
     Test we can initialise widget, and run with default image set
     """
+    _app = setup_qt
     config = {
         "default image": "data/logo.png",
         "buffer descriptions": [
@@ -101,7 +103,7 @@ def test_init_no_logo(setup_qt):
 
 def test_and_run_with_logo(setup_qt):
     """
-    Test we can initialise widget and run update, 
+    Test we can initialise widget and run update,
     when we haven't set default image.
     """
     _app = setup_qt
