@@ -18,14 +18,6 @@ stages:
     variables:
       - $CI_COMMIT_MESSAGE =~ /\[skip[ _-]build?\]/i
 
-.build-install-template: &build-install-template
-  script:
-    - tox -e installer
-  artifacts:
-    paths:
-      - dist/
-    expire_in: 1 week
-
 build docs:
   <<: *build-skip-template
   script:

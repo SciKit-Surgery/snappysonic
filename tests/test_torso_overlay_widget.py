@@ -9,6 +9,8 @@ def test_init_no_logo(setup_qt):
     """
     Test we can initialise widget, and run with default image
     """
+    _app = setup_qt
+
     config = {
         "default image": "data/logo.png",
         "buffer descriptions": [
@@ -47,6 +49,7 @@ def test_and_run_with_logo(setup_qt):
     """
     Test we can initialise widget and run update
     """
+    _app = setup_qt
     config = {
         "ultrasound buffer": "data/usbuffer.mp4",
         "buffer descriptions": [
@@ -78,6 +81,7 @@ def test_and_run_with_buffer_data(setup_qt):
     Test we can initialise widget and run update,
     getting and image from the usbuffer
     """
+    _app = setup_qt
     config = {
         "ultrasound buffer": "data/usbuffer.mp4",
         "buffer descriptions": [

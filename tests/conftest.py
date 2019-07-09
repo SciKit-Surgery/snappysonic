@@ -10,4 +10,3 @@ def setup_qt():
     """ Create the QT application. """
     app = QApplication([])
     return app
-
