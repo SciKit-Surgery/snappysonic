@@ -57,7 +57,10 @@ class OverlayApp(OverlayBaseApp):
         """Update the background renderer with a new frame,
         move the model and render"""
         #add a method to move the rendered models
-        image = self._get_image_with_tracking()
+        #image = self._get_image_with_tracking()
+        image = self._defaultimage
+        if self._defaultimage.shape == (0,):
+            image = self._weiss.get_noisy_logo()
 
         self.vtk_overlay_window.set_video_image(image)
         self.vtk_overlay_window.Render()
