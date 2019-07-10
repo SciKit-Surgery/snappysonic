@@ -2,7 +2,7 @@
 
 """Main loop for tracking visualisation"""
 from time import time
-from cv2 import (rectangle, putText, circle, imread, imshow)
+from cv2 import (rectangle, putText, circle, imread, imshow, waitKey)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
@@ -85,7 +85,8 @@ class OverlayApp(OverlayBaseApp):
                                int(pts[1] - self._bgimage_offsets[1]))
                     circle(tempimg, off_pts, 5, [255, 255, 255])
 
-        #imshow('tracking', tempimg)
+        imshow('tracking', tempimg)
+        waitKey(1)
 
         if pts:
             for usbuffer in self._video_buffers:
