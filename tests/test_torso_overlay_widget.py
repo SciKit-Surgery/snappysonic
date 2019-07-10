@@ -4,6 +4,12 @@
 
 import pytest
 from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
+import sksurgeryutils.common_overlay_apps as coa
+
+def test_overlay_app(setup_qt):
+
+    _app = setup_qt
+    _overlay_widget = coa.OverlayBaseApp('data/aruco_tag.avi')
 
 def test_error_on_ultrasound_buffer(setup_qt):
     """
