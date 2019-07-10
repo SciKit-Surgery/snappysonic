@@ -51,10 +51,7 @@ def test_error_on_ultrasound_buffer(setup_qt):
         "tracker config": {
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
-            "debug": True,
-            "capture properties": {
-                "CAP_PROP_FRAME_WIDTH": 640,
-                "CAP_PROP_FRAME_HEIGHT": 480
+            "debug": False,
             }
         }
     }
@@ -83,10 +80,7 @@ def test_error_on_invalid_buffer(setup_qt):
         "tracker config": {
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
-            "debug": True,
-            "capture properties": {
-                "CAP_PROP_FRAME_WIDTH": 640,
-                "CAP_PROP_FRAME_HEIGHT": 480
+            "debug": False,
             }
         }
     }
@@ -117,10 +111,7 @@ def test_init_no_logo(setup_qt):
         "tracker config": {
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
-            "debug": True,
-            "capture properties": {
-                "CAP_PROP_FRAME_WIDTH": 640,
-                "CAP_PROP_FRAME_HEIGHT": 480
+            "debug": False,
             }
         }
     }
@@ -154,10 +145,7 @@ def test_and_run_with_logo(setup_qt):
         "tracker config": {
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
-            "debug": True,
-            "capture properties": {
-                "CAP_PROP_FRAME_WIDTH": 640,
-                "CAP_PROP_FRAME_HEIGHT": 480
+            "debug": False,
             }
         }
     }
@@ -189,10 +177,7 @@ def test_and_run_with_buffer_data(setup_qt):
         "tracker config": {
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
-            "debug": True,
-            "capture properties": {
-                "CAP_PROP_FRAME_WIDTH": 640,
-                "CAP_PROP_FRAME_HEIGHT": 480
+            "debug": False,
             }
         }
     }
