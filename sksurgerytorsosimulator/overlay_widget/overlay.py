@@ -2,7 +2,10 @@
 
 """Main loop for tracking visualisation"""
 from time import time
-from cv2 import (rectangle, putText, circle, imread, imshow, waitKey)
+#from PySide2.QtGui import QLabel
+from PySide2.QtWidgets import QLabel
+from PySide2.QtGui import QPixmap, QImage
+from cv2 import (rectangle, putText, circle, imread, imshow)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
@@ -49,6 +52,8 @@ class OverlayApp(OverlayBaseApp):
             self._weiss = WeissLogo()
 
         self._logger = None
+
+        self._bgviewer = QLabel("Tracking")
         #we could implement something like this?
         #if "log directory" in config:
         #    self._logger = sksurgerydatasaver(config.get("log directory"))
@@ -85,8 +90,13 @@ class OverlayApp(OverlayBaseApp):
                                int(pts[1] - self._bgimage_offsets[1]))
                     circle(tempimg, off_pts, 5, [255, 255, 255])
 
-        imshow('tracking', tempimg)
-        waitKey(1)
+        height, width = tempimg.shape
+
+        bytesPerLine = 3 * width
+        qImg = QImage(tempimg.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+
+        self._bgviewer.setPixmap(QPixmap(qImg))
+        #imshow('tracking', tempimg)
 
         if pts:
             for usbuffer in self._video_buffers:
