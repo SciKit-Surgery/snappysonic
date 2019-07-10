@@ -52,10 +52,8 @@ def test_error_on_ultrasound_buffer(setup_qt):
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
             "debug": False,
-            }
         }
     }
-
     with pytest.raises(KeyError):
         _ = OverlayApp(config)
     print("Ending test: ", time())
@@ -81,7 +79,6 @@ def test_error_on_invalid_buffer(setup_qt):
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
             "debug": False,
-            }
         }
     }
 
@@ -112,7 +109,6 @@ def test_init_no_logo(setup_qt):
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
             "debug": False,
-            }
         }
     }
 
@@ -146,7 +142,6 @@ def test_and_run_with_logo(setup_qt):
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
             "debug": False,
-            }
         }
     }
 
@@ -178,7 +173,6 @@ def test_and_run_with_buffer_data(setup_qt):
             "tracker type": "aruco",
             "video source": "data/aruco_tag.avi",
             "debug": False,
-            }
         }
     }
 
