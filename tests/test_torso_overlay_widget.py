@@ -19,6 +19,17 @@ def test_overlay_app(setup_qt):
     print("Ending test: ", time())
 
 
+def test_overlay_app_with_mp4(setup_qt):
+    """Test that OverlayBaseApp is working, I'm not sure why
+    but doing this seems to avoid time out errors on the mac
+    CI server
+    """
+    print("Starting test: ", time())
+    _ = setup_qt
+    _ = OverlayBaseApp('data/usbuffer.mp4')
+    print("Ending test: ", time())
+
+
 def test_error_on_ultrasound_buffer(setup_qt):
     """
     Test we get a key error if no usbuffer
