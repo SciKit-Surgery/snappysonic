@@ -1,6 +1,7 @@
 # coding=utf-8
 
 """Main loop for tracking visualisation"""
+from time import time
 from cv2 import (rectangle, putText, circle, imread, imshow)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
@@ -26,12 +27,16 @@ class OverlayApp(OverlayBaseApp):
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
+        print("Filling video buffer: ", time())
         self._video_buffers = self._fill_video_buffers(config)
+        print("Filled video buffer: ", time())
 
         self._tracker = None
 
         if "tracker config" in config:
+            print("Configuring tracker: ", time())
             self._tracker = configure_tracker(config.get("tracker config"))
+            print("Configured tracker: ", time())
 
         self._bgimage_offsets = (0, 0)
         self._backgroundimage = self._create_background_image(config)
