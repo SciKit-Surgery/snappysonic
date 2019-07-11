@@ -1,5 +1,6 @@
 """Functions for sksurgerytorsosimaulator"""
 from numpy import iinfo, int16
+from PySide2.QtGui import QPixmap, QImage
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
 
@@ -109,7 +110,7 @@ def get_bg_image_size(config):
                 min_y = usbuffer.get("y1")
             if usbuffer.get("y0") < min_y:
                 min_y = usbuffer.get("y0")
-    border_size = 20
+    border_size = 60
     if "border size" in config:
         border_size = config.get("border size")
 
@@ -123,3 +124,11 @@ def get_bg_image_size(config):
     image_size = (max_y - min_y, max_x - min_x)
 
     return offsets, image_size
+
+def numpy_to_qpixmap(np_image):
+    """
+    Converts the input numpy array to a qpixmap
+    """
+    height, width = np_image.shape
+    q_image = QImage(np_image, width, height, QImage.Format_Grayscale8)
+    return QPixmap.fromImage(q_image)

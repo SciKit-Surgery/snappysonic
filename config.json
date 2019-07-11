@@ -3,7 +3,7 @@
 	"default image": "data/logo.png",
 	"buffer descriptions": [
 		{
-		 "name": "xxxx",
+		 "name": "Box A",
 		 "start frame": 0,
 		 "end frame": 284,
 		 "x0": 40, "x1": 240,
@@ -11,7 +11,7 @@
 		 "scan direction": "x"
 		},
 		{
-		 "name": "xxxxxx",
+		 "name": "Box B",
 		 "start frame": 285,
 		 "end frame": 560,
 		 "x0": 260, "x1": 460,
@@ -19,7 +19,7 @@
 		 "scan direction": "x"
 		},
 		{
-		 "name": "xxx",
+		 "name": "Box C",
 		 "start frame": 561,
 		 "end frame": 816,
 		 "x0": 40, "x1": 240,
@@ -27,7 +27,7 @@
 		 "scan direction": "x"
 		},
 		{
-		 "name": "xxxxxxxxx",
+		 "name": "Box D",
 		 "start frame": 817,
 		 "end frame": 1060,
 		 "x0": 260, "x1": 460,

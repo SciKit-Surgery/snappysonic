@@ -1,17 +1,15 @@
 # coding=utf-8
 
 """Main loop for tracking visualisation"""
-from time import time
-#from PySide2.QtGui import QLabel
-from PySide2.QtWidgets import QLabel
-from PySide2.QtGui import QPixmap, QImage
-from cv2 import (rectangle, putText, circle, imread, imshow)
+from PySide2.QtWidgets import QLabel, QWidget
+from cv2 import (rectangle, putText, circle, imread)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.algorithms.algorithms import (configure_tracker,
                                                            lookupimage,
                                                            check_us_buffer,
-                                                           get_bg_image_size)
+                                                           get_bg_image_size,
+                                                           numpy_to_qpixmap)
 from sksurgerytorsosimulator.algorithms.logo import WeissLogo
 
 class OverlayApp(OverlayBaseApp):
@@ -30,16 +28,12 @@ class OverlayApp(OverlayBaseApp):
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
-        print("Filling video buffer: ", time())
         self._video_buffers = self._fill_video_buffers(config)
-        print("Filled video buffer: ", time())
 
         self._tracker = None
 
         if "tracker config" in config:
-            print("Configuring tracker: ", time())
             self._tracker = configure_tracker(config.get("tracker config"))
-            print("Configured tracker: ", time())
 
         self._bgimage_offsets = (0, 0)
         self._backgroundimage = self._create_background_image(config)
@@ -53,7 +47,17 @@ class OverlayApp(OverlayBaseApp):
 
         self._logger = None
 
-        self._bgviewer = QLabel("Tracking")
+        self._tracking_window = QWidget()
+        self._tracking_window.setWindowTitle("Tracker Position")
+
+        self._tracking_viewer = QLabel("Tracking", self._tracking_window)
+
+        height, width = self._backgroundimage.shape
+        self._tracking_window.resize(width, height)
+        self._tracking_viewer.resize(width, height)
+        self._tracking_window.show()
+        self._tracking_viewer.setPixmap(numpy_to_qpixmap(self._backgroundimage))
+
         #we could implement something like this?
         #if "log directory" in config:
         #    self._logger = sksurgerydatasaver(config.get("log directory"))
@@ -74,10 +78,6 @@ class OverlayApp(OverlayBaseApp):
         """
         port_handles, _, _, tracking, _ = self._tracker.get_frame()
 
-        #and this
-        #if self._logger:
-        #     self._logger.write(timestamps, tracking)
-
         tempimg = self._backgroundimage.copy()
 
         pts = None
@@ -90,13 +90,7 @@ class OverlayApp(OverlayBaseApp):
                                int(pts[1] - self._bgimage_offsets[1]))
                     circle(tempimg, off_pts, 5, [255, 255, 255])
 
-        height, width = tempimg.shape
-
-        bytesPerLine = 3 * width
-        qImg = QImage(tempimg.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
-
-        self._bgviewer.setPixmap(QPixmap(qImg))
-        #imshow('tracking', tempimg)
+        self._tracking_viewer.setPixmap(numpy_to_qpixmap(tempimg))
 
         if pts:
             for usbuffer in self._video_buffers:
@@ -142,8 +136,6 @@ class OverlayApp(OverlayBaseApp):
         """
         Creates a backgound image on which we can draw tracking information.
         """
-        #this is a bit of a hack. Is there a better way? It assumes we're using
-        #ARuCo
 
         bg_image_size = [480, 640]
         if "buffer descriptions" in config:
