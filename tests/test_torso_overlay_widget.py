@@ -3,18 +3,7 @@
 """snappy-torso-simulator tests"""
 
 import pytest
-from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
-
-
-def test_overlay_app(setup_qt):
-    """Test that OverlayBaseApp is working, I'm not sure why
-    but doing this seems to avoid time out errors on the mac
-    CI server
-    """
-    _ = setup_qt
-    _ = OverlayBaseApp('data/aruco_tag.avi')
-
 
 def test_error_on_ultrasound_buffer(setup_qt):
     """
