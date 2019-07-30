@@ -5,7 +5,6 @@ variables:
 
 stages:
   - build
-  - installer
   - test
   - deploy
 
@@ -18,34 +17,6 @@ stages:
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /\[skip[ _-]build?\]/i
-
-.build-install-template: &build-install-template
-  script:
-    - tox -e installer
-  artifacts:
-    paths:
-      - dist/
-    expire_in: 1 week
-
-# The win/mac/linux build stages inherit settings
-# from build-install-template
-build linux installer:
-  <<: *build-skip-template
-  <<: *build-install-template
-  tags:
-    - shared-linux
-
-build mac installer:
-  <<: *build-skip-template
-  <<: *build-install-template
-  tags:
-    - shared-mac
-
-build windows installer:
-  <<: *build-skip-template
-  <<: *build-install-template
-  tags:
-    - shared-win
 
 build docs:
   <<: *build-skip-template
@@ -60,10 +31,13 @@ build docs:
 
 test Linux:
   stage: test
+  variables:
+    LD_LIBRARY_PATH: ${CI_PROJECT_DIR}/.tox/py36/lib/python3.6/site-packages/PySide2/Qt/plugins/platforms
+    DISPLAY: localhost:1
   script:
     - tox
   tags:
-    - shared-linux
+    - shared-linux, gui
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
 test macOS:
@@ -71,14 +45,14 @@ test macOS:
   script:
     - tox
   tags:
-    - shared-mac
+    - shared-mac, gui
 
 test Windows:
   stage: test
   script:
     - tox
   tags:
-    - shared-win
+    - shared-win, gui
 
 deploy pip to PyPI:
   stage: deploy

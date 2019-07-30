@@ -4,3 +4,4 @@ omit =
         ./sksurgerytorsosimulator/__init__.py
         ./sksurgerytorsosimulator/__main__.py
         ./sksurgerytorsosimulator/ui/sksurgerytorsosimulator_command_line.py
+        ./sksurgerytorsosimulator/ui/sksurgerytorsosimulator_demo.py

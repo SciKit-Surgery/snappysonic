@@ -1,14 +1,15 @@
 """Functions for sksurgerytorsosimaulator"""
 from numpy import iinfo, int16
+from PySide2.QtGui import QPixmap, QImage
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
-from cv2 import randn
 
 def configure_tracker(config):
     """
     Configures a scikit-surgery tracker based on the passed config
     param: a tracker configuration dictionary
     returns: The tracker
+    raises: Key Error
     """
 
     if "tracker type" not in config:
@@ -54,20 +55,6 @@ def lookupimage(usbuffer, pts):
 
     return False, None
 
-
-def noisy(image):
-    """
-    Creates a noise image, based on the dimensions of the
-    passed image.
-    param: the image to define size and channels of output
-    returns: a noisy image
-    """
-    mean = 0
-    stddev = (50, 5, 5)
-    randn(image, (mean), (stddev))
-    return image
-
-
 def check_us_buffer(usbuffer):
     """
     Checks that all ultrasound buffer contains all required key values.
@@ -111,19 +98,19 @@ def get_bg_image_size(config):
                 max_x = usbuffer.get("x0")
             if usbuffer.get("x1") > max_x:
                 max_x = usbuffer.get("x1")
-            if usbuffer.get("x0") < min_x:
-                min_x = usbuffer.get("x0")
             if usbuffer.get("x1") < min_x:
                 min_x = usbuffer.get("x1")
+            if usbuffer.get("x0") < min_x:
+                min_x = usbuffer.get("x0")
             if usbuffer.get("y0") > max_y:
                 max_y = usbuffer.get("y0")
             if usbuffer.get("y1") > max_y:
                 max_y = usbuffer.get("y1")
-            if usbuffer.get("y0") < min_y:
-                min_y = usbuffer.get("y0")
             if usbuffer.get("y1") < min_y:
                 min_y = usbuffer.get("y1")
-    border_size = 20
+            if usbuffer.get("y0") < min_y:
+                min_y = usbuffer.get("y0")
+    border_size = 60
     if "border size" in config:
         border_size = config.get("border size")
 
@@ -137,3 +124,11 @@ def get_bg_image_size(config):
     image_size = (max_y - min_y, max_x - min_x)
 
     return offsets, image_size
+
+def numpy_to_qpixmap(np_image):
+    """
+    Converts the input numpy array to a qpixmap
+    """
+    height, width = np_image.shape
+    q_image = QImage(np_image, width, height, QImage.Format_Grayscale8)
+    return QPixmap.fromImage(q_image)
