@@ -1,9 +1,9 @@
 # coding=utf-8
 
-"""snappy-torso-simulator tests"""
+"""snappysonic tests"""
 
 import pytest
-from sksurgerytorsosimulator.ui.sksurgerytorsosimulator_demo import run_demo
+from snappysonic.ui.snappysonic_demo import run_demo
 
 def test_demo_with_bad_config():
     """ test with an invalid config """

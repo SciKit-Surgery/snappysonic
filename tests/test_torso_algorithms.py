@@ -1,11 +1,11 @@
 # coding=utf-8
 
-"""snappy-torso-simulator tests"""
+"""snappysonic tests"""
 
 from math import floor
 from numpy import zeros, uint8
 import pytest
-import sksurgerytorsosimulator.algorithms.algorithms as skalg
+import snappysonic.algorithms.algorithms as skalg
 
 def test_configure_tracker():
     """

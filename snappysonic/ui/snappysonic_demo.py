@@ -6,7 +6,7 @@ from PySide2.QtWidgets import QApplication
 from sksurgerycore.configuration.configuration_manager import (
         ConfigurationManager
         )
-from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
+from snappysonic.overlay_widget.overlay import OverlayApp
 
 
 def run_demo(configfile):

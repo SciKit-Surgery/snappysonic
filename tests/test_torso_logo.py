@@ -1,9 +1,9 @@
 # coding=utf-8
 
-"""snappy-torso-simulator tests"""
+"""snappysonic tests"""
 
 from numpy import uint8, zeros
-from sksurgerytorsosimulator.algorithms.logo import WeissLogo, noisy
+from snappysonic.algorithms.logo import WeissLogo, noisy
 
 def test_logo():
     """

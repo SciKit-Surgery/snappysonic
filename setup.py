@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-Setup for scikit-torso-simulator
+Setup for snappysonic 
 """
 
 from setuptools import setup, find_packages
@@ -11,10 +11,10 @@ with open('README.rst') as f:
     long_description = f.read()
 
 setup(
-    name='scikit-surgerytorsosimulator',
+    name='snappysonic',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    description='scikit-surgerytorsosimulator provides an application to simulate an ultrasound probe moving over a body torso, it is intended for public engagement events"',
+    description='snappysonic provides an application to simulate an ultrasound probe moving over a body torso, it is intended for public engagement events"',
     long_description=long_description,
     long_description_content_type='text/x-rst',
     url='https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator',
@@ -34,14 +34,13 @@ setup(
 
 
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
 
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Scientific/Engineering :: Medical Science Apps.',
     ],
 
-    keywords='medical imaging',
+    keywords='medical imaging education',
 
     packages=find_packages(
         exclude=[
@@ -57,12 +56,12 @@ setup(
         'scikit-surgeryutils',
         'scikit-surgerynditracker',
         'scikit-surgeryarucotracker',
-        'numpy>=1.11',
+        'numpy',
     ],
 
     entry_points={
         'console_scripts': [
-            'sksurgerytorsosimulator=sksurgerytorsosimulator.__main__:main',
+            'snappysonic=snappysonic.__main__:main',
         ],
     },
 )

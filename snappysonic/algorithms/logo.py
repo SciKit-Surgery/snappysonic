@@ -1,4 +1,4 @@
-"""Functions for sksurgerytorsosimaulator"""
+"""Functions for snappysonic"""
 from math import cos, pi
 from numpy import full, int32, uint8
 from cv2 import randn, fillConvexPoly, circle
