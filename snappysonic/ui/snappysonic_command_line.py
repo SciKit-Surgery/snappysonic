@@ -4,15 +4,15 @@
 
 
 import argparse
-from sksurgerytorsosimulator import __version__
-from sksurgerytorsosimulator.ui.sksurgerytorsosimulator_demo import run_demo
+from snappysonic import __version__
+from snappysonic.ui.snappysonic_demo import run_demo
 
 
 def main(args=None):
-    """Entry point for scikit-surgery-torso-simulator application"""
+    """Entry point for snappysonic application"""
 
     parser = argparse.ArgumentParser(
-        description='scikit-surgery-torso-simulator')
+        description='snappysonic')
 
     ## ADD POSITIONAL ARGUMENTS
     parser.add_argument(
@@ -29,7 +29,7 @@ def main(args=None):
     parser.add_argument(
         "--version",
         action='version',
-        version='scikit-surgery-torso-simulator version ' +
+        version='snappysonic version ' +
         friendly_version_string
         )
 

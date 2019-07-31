@@ -2,9 +2,9 @@
 # It is used by pip to manage software dependencies. It is not to be
 # confused with the software requirements, which are listed in
 # doc/requirements.rst
-numpy
-opencv-contrib-python
-PySide2
 scikit-surgeryutils
 scikit-surgerynditracker
 scikit-surgeryarucotracker
+PySide2
+numpy
+opencv-contrib-python

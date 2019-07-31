@@ -1,2 +1,2 @@
 include versioneer.py
-include snappytorsosimulator/_version.py
+include snappysonic/_version.py

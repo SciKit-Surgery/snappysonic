@@ -1,9 +1,9 @@
 # coding=utf-8
 
-"""snappy-torso-simulator tests"""
+"""snappysonic tests"""
 
 import pytest
-from sksurgerytorsosimulator.overlay_widget.overlay import OverlayApp
+from snappysonic.overlay_widget.overlay import OverlayApp
 
 def test_error_on_ultrasound_buffer(setup_qt):
     """
