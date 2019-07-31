@@ -1,4 +1,4 @@
-scikit-torso-simulator
+SnappySonic
 ===============================
 
 .. image:: https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator/raw/master/project-icon.png
@@ -23,15 +23,16 @@ scikit-torso-simulator
 
 Author: Stephen Thompson
 
-scikit-torso-simulator is part of the `SNAPPY`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
+SnappySonic can be used as an ultrasound acquisition simulator. The output from a tracking system (NDI or AruCo tags) is to select a frame of pre-recorded video to show. A suitable video of ultrasound data is included in the data directory, however the user can select a video of their choosing. 
 
-scikit-torso-simulator supports Python 3.6.
+SnappySonic is part of the `SNAPPY`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
 
-snappy-torso-simulator uses out put from a tracking system (NDI or AruCo tags) to select a frame of video to show. It can be used to construct a simple to use ultrasound simulator.
+SnappySonic supports Python 3.6.
 
 ::
-
-    python sksurgerytorsosimulator.py --config config.json
+ 
+    pip install snappysonic
+    python snappysonic.py --config config.json
 
 The config file defines the tracking parameters and image buffer, e.g.
 
@@ -39,7 +40,6 @@ The config file defines the tracking parameters and image buffer, e.g.
 
   {
    "ultrasound buffer": "data/usbuffer.mp4",
-	 "default image": "data/logo.png",
 	 "buffer descriptions": [
 		{
 		 "name": "glove",
@@ -79,29 +79,21 @@ You can clone the repository using the following command:
 
 Running tests
 ^^^^^^^^^^^^^
-Pytest is used for running unit tests:
+Unit tests are performed in stand alone environments using tox, which also checks coding style.
 ::
 
-    pip install pytest
-    python -m pytest
-
-
-Linting
-^^^^^^^
-
-This code conforms to the PEP8 standard. Pylint can be used to analyse the code:
-
-::
-
-    pip install pylint
-    pylint --rcfile=tests/pylintrc snappytorsosimulator
+    tox
 
 
 Installing
 ----------
 
-You can pip install directly from the repository as follows:
+You can pip install from pypi with
+::
 
+  pip install snappysonic
+
+or You can pip install directly from the repository as follows:
 ::
 
     pip install git+https://weisslab.cs.ucl.ac.uk/WEISS/SoftwareRepositories/SNAPPY/scikit-surgerytorsosimulator
@@ -125,7 +117,7 @@ Licensing and copyright
 -----------------------
 
 Copyright 2019 University College London.
-snappy-torso-simulator is released under the BSD-3 license. Please see the `license file`_ for details.
+snappysonic is released under the BSD-3 license. Please see the `license file`_ for details.
 
 
 Acknowledgements

@@ -3,7 +3,7 @@
 .. _requirements:
 
 ===============================================
-Requirements for snappy-torso-simulator
+Requirements for snappysonic
 ===============================================
 
 This is the software requirements file for snappy-torso-simulator, part of the

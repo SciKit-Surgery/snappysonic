@@ -52,11 +52,11 @@ setup(
 
     install_requires=[
         'opencv-contrib-python',
-        'PySide2',
         'scikit-surgeryutils',
         'scikit-surgerynditracker',
         'scikit-surgeryarucotracker',
         'numpy',
+        'PySide2',
     ],
 
     entry_points={
