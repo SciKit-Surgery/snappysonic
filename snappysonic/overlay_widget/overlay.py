@@ -5,12 +5,12 @@ from PySide2.QtWidgets import QLabel, QWidget
 from cv2 import (rectangle, putText, circle, imread)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
+from sksurgeryimage.utilities.weisslogo import WeissLogo
 from snappysonic.algorithms.algorithms import (configure_tracker,
                                                lookupimage,
                                                check_us_buffer,
                                                get_bg_image_size,
                                                numpy_to_qpixmap)
-from snappysonic.algorithms.logo import WeissLogo
 
 class OverlayApp(OverlayBaseApp):
     """Inherits from OverlayBaseApp,

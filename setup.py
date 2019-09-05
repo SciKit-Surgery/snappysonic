@@ -52,6 +52,7 @@ setup(
 
     install_requires=[
         'opencv-contrib-python',
+        'scikit-surgeryimage>=0.6.0',
         'scikit-surgeryutils',
         'scikit-surgerynditracker',
         'scikit-surgeryarucotracker',
