@@ -17,6 +17,8 @@ stages:
  - test
  - deploy
 
+before install:
+ - sudo apt-get install -qq libegl1-mesa
 install:
  - pip install -r requirements-dev.txt
 
