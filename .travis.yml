@@ -1,0 +1,42 @@
+language: python
+
+services:
+  - xfb
+
+matrix:
+ include:
+  - os: linux
+    python: 3.6
+    env: LINT=1
+  - os: linux
+    python: 3.7
+    env: LINT=1
+
+stages:
+ - install
+ - test
+ - deploy
+
+install:
+ - pip install -r requirements-dev.txt
+
+script:
+ - coverage erase
+ - coverage run -a --source ./snappysonic -m pytest -v -s ./tests/
+ - coverage report -m
+ - if [ $LINT == 1 ]; then
+    pylint --rcfile=tests/pylintrc snappysonic tests;
+   fi
+
+after_success:
+ - coveralls
+
+deploy:
+  provider: pypi
+  user: $PYPI_USER
+  password: $PYPI_PASS
+  skip_existing: true
+  on:
+   tags: true
+   branch: master
+
