@@ -1,7 +1,9 @@
 # coding=utf-8
 
 
-"""Hello world demo module"""
+"""SnappySonicdemo module"""
+
+import sys
 from PySide2.QtWidgets import QApplication
 from sksurgerycore.configuration.configuration_manager import (
         ConfigurationManager
@@ -22,5 +24,5 @@ def run_demo(configfile):
 
     viewer.start()
 
-   #start the application
-    exit(app.exec_())
+    #start the application
+    sys.exit(app.exec_())

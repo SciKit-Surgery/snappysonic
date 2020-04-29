@@ -18,7 +18,8 @@ stages:
  - deploy
 
 before install:
- - sudo apt-get install -qq libegl1-mesa libxkbcommon-dev libxkbcommon-x11-0
+ - sudo apt-get install -qq libxkbcommon-x11-0
+
 install:
  - pip install -r requirements-dev.txt
 
