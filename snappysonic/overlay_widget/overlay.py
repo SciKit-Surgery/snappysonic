@@ -24,7 +24,7 @@ class OverlayApp(OverlayBaseApp):
         """
         Overides overlay base app's init, to initialise the
         external tracking system. Together with a video source
-        
+
         :param config: a configuration dictionary
         """
 

@@ -61,7 +61,7 @@ def lookupimage(usbuffer, pts):
 def check_us_buffer(usbuffer):
     """
     Checks that all ultrasound buffer contains all required key values.
-    
+
     :param usbuffer: the buffer to check
     :raises: KeyError
     :raises: ValueError
@@ -91,7 +91,7 @@ def get_bg_image_size(config):
     """
     Reads the geometry from a configuration and
     returns the extents of the buffer
-    
+
     :param config: a tracker configuration dictionary
     :returns: the extents of the buffer
     """
@@ -136,7 +136,7 @@ def get_bg_image_size(config):
 def numpy_to_qpixmap(np_image):
     """
     Converts the input numpy array to a qpixmap
-    
+
     :param np_image: a numpy array
     :returns: a qpixmap
     """
