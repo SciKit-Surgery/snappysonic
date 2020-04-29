@@ -7,9 +7,10 @@ from sksurgeryarucotracker.arucotracker import ArUcoTracker
 def configure_tracker(config):
     """
     Configures a scikit-surgery tracker based on the passed config
-    param: a tracker configuration dictionary
-    returns: The tracker
-    raises: Key Error
+
+    :param config: a tracker configuration dictionary
+    :returns: The tracker
+    :raises: KeyError
     """
 
     if "tracker type" not in config:
@@ -31,9 +32,11 @@ def lookupimage(usbuffer, pts):
     """
     determines whether a coordinate (pts) lies with an area defined by
     a usbuffer, and returns an image from the buffer if appropriate
-    param: usbuffer, a dictionary containing bounding box information (x0,y0,
-    x1,y1) and image data
-    returns: True if point in bounding box. Image.
+
+    :param usbuffer: a dictionary containing bounding box information (x0,y0,
+        x1,y1) and image data
+
+    :returns: True if point in bounding box. Image.
     """
     if pts[0] > usbuffer.get("x0"):
         if pts[0] < usbuffer.get("x1"):
@@ -58,8 +61,10 @@ def lookupimage(usbuffer, pts):
 def check_us_buffer(usbuffer):
     """
     Checks that all ultrasound buffer contains all required key values.
-    :param the buffer to check
-    :raises Exception: KeyError, ValueError
+
+    :param usbuffer: the buffer to check
+    :raises: KeyError
+    :raises: ValueError
     """
     if "name" not in usbuffer:
         raise KeyError("Buffer configuration must contain a name.")
@@ -86,6 +91,9 @@ def get_bg_image_size(config):
     """
     Reads the geometry from a configuration and
     returns the extents of the buffer
+
+    :param config: a tracker configuration dictionary
+    :returns: the extents of the buffer
     """
     min_x = iinfo(int16).max
     max_x = iinfo(int16).min
@@ -128,6 +136,9 @@ def get_bg_image_size(config):
 def numpy_to_qpixmap(np_image):
     """
     Converts the input numpy array to a qpixmap
+
+    :param np_image: a numpy array
+    :returns: a qpixmap
     """
     height, width = np_image.shape
     q_image = QImage(np_image, width, height, QImage.Format_Grayscale8)

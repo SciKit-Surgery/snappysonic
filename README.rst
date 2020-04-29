@@ -23,7 +23,7 @@ SnappySonic
 
 Author: Stephen Thompson
 
-SnappySonic can be used as an ultrasound acquisition simulator. The output from a tracking system (NDI or AruCo tags) is to select a frame of pre-recorded video to show. A suitable video of ultrasound data is included in the data directory, however the user can select a video of their choosing. 
+SnappySonic can be used as an ultrasound acquisition simulator. The output from a tracking system (NDI or AruCo tags) is to select a frame of pre-recorded video to show. A suitable video of ultrasound data is included in the data directory, however the user can select a video of their choosing. The software and its use is described in the `SnappySonic paper`_. 
 
 SnappySonic is part of the `SNAPPY`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
 
@@ -98,7 +98,11 @@ or You can pip install directly from the repository as follows:
 
     pip install git+https://github.com/UCL/snappysonic
 
+How to Cite
+-----------
+If you use this software in your research or teaching, please cite:
 
+Thompson, S., Dowrick, T., Xiao, G., Ramalhinho, J., Robu, M., Ahmad, M., Taylor, D. and Clarkson, M.J., 2020. SnappySonic: An Ultrasound Acquisition Replay Simulator. Journal of Open Research Software, 8(1), p.8. DOI: http://doi.org/10.5334/jors.289
 
 Contributing
 ^^^^^^^^^^^^
@@ -137,4 +141,4 @@ Supported by `Wellcome`_ and `EPSRC`_.
 .. _`EPSRC`: https://www.epsrc.ac.uk/
 .. _`contributing guidelines`: https://github.com/UCL/snappysonic/blob/master/CONTRIBUTING.rst
 .. _`license file`: https://github.com/UCL/snappysonic/blob/master/LICENSE
-
+.. _`SnappySonic paper`: http://doi.org/10.5334/jors.289

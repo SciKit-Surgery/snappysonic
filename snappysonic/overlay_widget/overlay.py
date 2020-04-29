@@ -13,14 +13,20 @@ from snappysonic.algorithms.algorithms import (configure_tracker,
                                                numpy_to_qpixmap)
 
 class OverlayApp(OverlayBaseApp):
-    """Inherits from OverlayBaseApp,
+    """
+    Inherits from OverlayBaseApp,
     adding code to read in video buffers, and display a frame
     of data that depends on the position of an external tracking system,
-    e.g. surgeryarucotracker"""
+    e.g. surgeryarucotracker
+    """
 
     def __init__(self, config):
-        """Overides overlay base app's init, to initialise the
-        external tracking system. Together with a video source"""
+        """
+        Overides overlay base app's init, to initialise the
+        external tracking system. Together with a video source
+
+        :param config: a configuration dictionary
+        """
 
         if "ultrasound buffer" in config:
             #and call the constructor for the base class
@@ -63,8 +69,10 @@ class OverlayApp(OverlayBaseApp):
         #    self._logger = sksurgerydatasaver(config.get("log directory"))
 
     def update(self):
-        """Update the background renderer with a new frame,
-        move the model and render"""
+        """
+        Update the background renderer with a new frame,
+        move the model and render
+        """
         #add a method to move the rendered models
         image = self._get_image_with_tracking()
 
@@ -135,6 +143,8 @@ class OverlayApp(OverlayBaseApp):
     def _create_background_image(self, config):
         """
         Creates a backgound image on which we can draw tracking information.
+
+        :param config: a configuration dictionary
         """
 
         bg_image_size = [480, 640]
