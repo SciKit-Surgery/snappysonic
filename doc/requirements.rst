@@ -6,9 +6,9 @@
 Requirements for snappysonic
 ===============================================
 
-This is the software requirements file for snappy-torso-simulator, part of the
-SNAPPY project. The requirements listed below should define
-what snappy-torso-simulator does. Each requirement can be matched to a unit test that
+This is the software requirements file for snappysonic, part of the
+SciKit-Surgery project. The requirements listed below should define
+what snappysonic does. Each requirement can be matched to a unit test that
 checks whether the requirement is met.
 
 Requirements
