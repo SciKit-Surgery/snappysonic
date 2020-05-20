@@ -24,7 +24,7 @@ jobs:
       - name: Run tests on ubuntu using xvfb
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-	  sudo apt-get install xvfb
+          sudo apt-get install xvfb
           sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
           export DISPLAY=":1"
           coverage erase
