@@ -57,7 +57,7 @@ setup(
         'scikit-surgerynditracker',
         'scikit-surgeryarucotracker',
         'numpy',
-        'PySide2',
+        'PySide2<=5.13.1',
     ],
 
     entry_points={
