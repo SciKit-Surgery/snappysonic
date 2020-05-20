@@ -22,7 +22,7 @@ jobs:
           pip install -r requirements-dev.txt
 
       - name: Run tests on ubuntu using xvfb
-	if: startsWith(matrix.os, 'ubuntu')
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
 	  sudo apt-get install xvfb
           sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
@@ -33,7 +33,7 @@ jobs:
           pylint --rcfile=tests/pylintrc sksurgerycalibration tests
 
       - name: Run tests windows/mac
-	if: contains(matrix.os, 'o')
+        if: contains(matrix.os, 'o')
         run: |
           coverage erase
           coverage run -a --source ./sksurgerycalibration -m pytest -v -s ./tests/
