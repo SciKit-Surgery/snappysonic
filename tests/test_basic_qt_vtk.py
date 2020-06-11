@@ -46,7 +46,7 @@ def test_overlay_base_app(setup_qt):
     # This includesa  VTKOverlayWindow()
     overlay_base_app = OverlayBaseApp("data/usbuffer.mp4")
 
-def test_vtk_overlay_widget(setup_qt):
-    _ = setup_qt
+# def test_vtk_overlay_widget(setup_qt):
+#     _ = setup_qt
 
-    overlay_widget = VTKOverlayWindow()
+#     overlay_widget = VTKOverlayWindow()
