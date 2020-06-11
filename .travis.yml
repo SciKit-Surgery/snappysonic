@@ -25,7 +25,7 @@ install:
 
 script:
   - coverage erase
-  - coverage run -a --source ./snappysonic -m pytest -vv -s ./tests/test_basic_qt_vtk.py
+  - coverage run -a --source ./snappysonic -m pytest -vv -s ./tests/
   - coverage report -m
   - if [ $LINT == 1 ]; then
     pylint --rcfile=tests/pylintrc snappysonic tests;
