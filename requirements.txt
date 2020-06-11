@@ -6,6 +6,6 @@ scikit-surgeryutils
 scikit-surgerynditracker
 scikit-surgeryarucotracker
 scikit-surgeryimage>=0.6.0
-PySide2
+PySide2==5.14.2.1
 numpy
 opencv-contrib-python
