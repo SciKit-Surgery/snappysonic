@@ -4,35 +4,35 @@ services:
   - xfb
 
 matrix:
- include:
-  - os: linux
-    python: 3.6
-    env: LINT=1
-  - os: linux
-    python: 3.7
-    env: LINT=1
+  include:
+    - os: linux
+      python: 3.6
+      env: LINT=1
+    - os: linux
+      python: 3.7
+      env: LINT=1
 
 stages:
- - install
- - test
- - deploy
+  - install
+  - test
+  - deploy
 
 before install:
- - sudo apt-get install -qq libxkbcommon-x11-0
+  - sudo apt-get install -qq libxkbcommon-x11-0
 
 install:
- - pip install -r requirements-dev.txt
+  - pip install -r requirements-dev.txt
 
 script:
- - coverage erase
- - coverage run -a --source ./snappysonic -m pytest -v -s ./tests/
- - coverage report -m
- - if [ $LINT == 1 ]; then
+  - coverage erase
+  - coverage run -a --source ./snappysonic -m pytest -v -s ./tests/test_basic_qt_vtk.py
+  - coverage report -m
+  - if [ $LINT == 1 ]; then
     pylint --rcfile=tests/pylintrc snappysonic tests;
-   fi
+    fi
 
 after_success:
- - coveralls
+  - coveralls
 
 deploy:
   provider: pypi
@@ -40,6 +40,5 @@ deploy:
   password: $PYPI_PASS
   skip_existing: true
   on:
-   tags: true
-   branch: master
-
+    tags: true
+    branch: master
