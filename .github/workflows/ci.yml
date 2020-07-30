@@ -62,19 +62,19 @@ jobs:
           export DISPLAY=":1"
           export LD_LIBRARY_PATH=$pythonLocation"/lib/python3.6/site-packages/PySide2/Qt/plugins/platfoms"
           coverage erase
-          coverage run -a --source ./sksurgeryvtk -m pytest
+          coverage run -a --source ./snappysonic -m pytest
           coverage report -m
 
       - name: Run tests Windows/Mac
         if: contains(matrix.os, 'o')
         run: |
           coverage erase
-          coverage run -a --source ./sksurgeryvtk -m pytest
+          coverage run -a --source ./snappysonic -m pytest
           coverage report -m
 
       - name: Linting
         run: |
-          pylint --rcfile=tests/pylintrc sksurgeryvtk
+          pylint --rcfile=tests/pylintrc snappysonic
 
       - name: Run coveralls
         run: |
