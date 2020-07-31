@@ -19,6 +19,18 @@ SnappySonic
     :target: http://snappysonic.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://img.shields.io/badge/DOI-10.5334%2Fjors.289-blue
+    :target: http://doi.org/10.5334/jors.289
+    :alt: The SnappySonic Paper
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3491054.svg
+   :target: https://doi.org/10.5281/zenodo.3491054
+   :alt: Software DOI
+
+.. image:: https://img.shields.io/badge/YouTube-Tutorial-blueviolet
+   :target: https://www.youtube.com/watch?v=BI4qyg9NEOk
+   :alt: Tutorial on YouTube
+
 
 
 Author: Stephen Thompson
