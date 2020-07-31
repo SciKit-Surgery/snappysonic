@@ -7,9 +7,9 @@ SnappySonic
    :target: https://github.com/UCL/snappysonic
    :alt: Logo
 
-.. image:: https://travis-ci.com/UCL/snappysonic.svg?branch=master
-   :target: https://travis-ci.com/github/UCL/snappysonic
-   :alt: Travis CI test status
+.. image:: https://github.com/UCL/snappysonic/workflows/.github/workflows/ci.yml/badge.svg
+   :target: https://github.com/UCL/snappysonic/actions
+   :alt: GitHub Actions CI status
 
 .. image:: https://coveralls.io/repos/github/UCL/snappysonic/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/UCL/snappysonic?branch=master 
@@ -25,7 +25,7 @@ Author: Stephen Thompson
 
 SnappySonic can be used as an ultrasound acquisition simulator. The output from a tracking system (NDI or AruCo tags) is to select a frame of pre-recorded video to show. A suitable video of ultrasound data is included in the data directory, however the user can select a video of their choosing. The software and its use is described in the `SnappySonic paper`_. 
 
-SnappySonic is part of the `SNAPPY`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
+SnappySonic is part of the `SciKit-Surgery`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
 
 SnappySonic supports Python 3.6.
 
@@ -135,7 +135,7 @@ Supported by `Wellcome`_ and `EPSRC`_.
 .. _`here`: https://github.com/UCL/snappysonic/config.json
 .. _`source code repository data directory`: https://github.com/UCL/snappysonic/data
 .. _`Documentation`: https://snappysonic.readthedocs.io
-.. _`SNAPPY`: https://github.com/UCL/scikit-surgery/wikis/home
+.. _`SciKit-Surgery`: https://github.com/UCL/scikit-surgery/wikis/home
 .. _`University College London (UCL)`: http://www.ucl.ac.uk/
 .. _`Wellcome`: https://wellcome.ac.uk/
 .. _`EPSRC`: https://www.epsrc.ac.uk/
