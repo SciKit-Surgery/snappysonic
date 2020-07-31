@@ -27,7 +27,7 @@ SnappySonic
    :target: https://doi.org/10.5281/zenodo.3491054
    :alt: Software DOI
 
-.. image:: .. https://img.shields.io/badge/YouTube-Tutorial-blueviolet
+.. image:: https://img.shields.io/badge/YouTube-Tutorial-blueviolet
    :target: https://www.youtube.com/watch?v=BI4qyg9NEOk
    :alt: Tutorial on YouTube
 
