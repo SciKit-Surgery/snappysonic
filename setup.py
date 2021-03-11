@@ -55,7 +55,7 @@ setup(
         'scikit-surgeryimage>=0.6.0',
         'scikit-surgeryutils',
         'scikit-surgerynditracker',
-        'scikit-surgeryarucotracker',
+        'scikit-surgeryarucotracker<0.2.0',
         'numpy',
         'PySide2',
     ],
