@@ -4,7 +4,7 @@
 # doc/requirements.rst
 scikit-surgeryutils
 scikit-surgerynditracker
-scikit-surgeryarucotracker<0.2.0
+scikit-surgeryarucotracker
 scikit-surgeryimage>=0.6.0
 PySide2
 numpy
