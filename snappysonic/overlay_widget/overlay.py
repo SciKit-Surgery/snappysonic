@@ -1,16 +1,19 @@
 # coding=utf-8
 
 """Main loop for tracking visualisation"""
+from packaging import version
 from PySide2.QtWidgets import QLabel, QWidget
 from cv2 import (rectangle, putText, circle, imread)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseApp
 from sksurgeryimage.utilities.weisslogo import WeissLogo
+from sksurgeryarucotracker import __version__ as arucoversion
 from snappysonic.algorithms.algorithms import (configure_tracker,
                                                lookupimage,
                                                check_us_buffer,
                                                get_bg_image_size,
                                                numpy_to_qpixmap)
+
 
 class OverlayApp(OverlayBaseApp):
     """
@@ -64,6 +67,11 @@ class OverlayApp(OverlayBaseApp):
         self._tracking_window.show()
         self._tracking_viewer.setPixmap(numpy_to_qpixmap(self._backgroundimage))
 
+        default_target = 0
+        if version.parse(arucoversion) >= version.parse("0.2.0"):
+            default_target = "DICT_4X4_50:0"
+
+        self._tracking_target = config.get("tracking target", default_target)
         #we could implement something like this?
         #if "log directory" in config:
         #    self._logger = sksurgerydatasaver(config.get("log directory"))
@@ -91,7 +99,7 @@ class OverlayApp(OverlayBaseApp):
         pts = None
         if port_handles:
             for index, port_hdl in enumerate(port_handles):
-                if port_hdl == 0:
+                if port_hdl == self._tracking_target:
                     pts = (int(tracking[index][0, 3]),
                            int(tracking[index][1, 3]))
                     off_pts = (int(pts[0] - self._bgimage_offsets[0]),
