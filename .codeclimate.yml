@@ -55,13 +55,9 @@ exclude_patterns:
 - "db/"
 - "dist/"
 - "features/"
-- "**/node_modules/"
-- "script/"
-- "**/spec/"
 - "**/test/"
 - "**/tests/"
-- "Tests/"
-- "**/vendor/"
-- "**/*_test.go"
-- "**/*.d.ts"
+- "snappysonic/_version.py"
+- "versioneer.py"
+
 
