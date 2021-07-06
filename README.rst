@@ -27,6 +27,10 @@ SnappySonic
    :target: https://doi.org/10.5281/zenodo.3491054
    :alt: Software DOI
 
+.. image:: https://api.codeclimate.com/v1/badges/326c1b87863bd61bbe83/maintainability
+   :target: https://codeclimate.com/github/UCL/snappysonic/maintainability
+   :alt: Maintainability
+
 .. image:: https://img.shields.io/badge/YouTube-Tutorial-blueviolet
    :target: https://www.youtube.com/watch?v=BI4qyg9NEOk
    :alt: Tutorial on YouTube
