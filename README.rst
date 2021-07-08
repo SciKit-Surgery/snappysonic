@@ -31,7 +31,7 @@ SnappySonic
    :target: https://codeclimate.com/github/UCL/snappysonic/maintainability
    :alt: Maintainability
 
-.. image:: https://img.shields.io/badge/YouTube-Tutorial-blueviolet
+.. image:: https://img.shields.io/badge/-Video%20Tutorial-blueviolet?style=flat&logo=youtube
    :target: https://www.youtube.com/watch?v=BI4qyg9NEOk
    :alt: Tutorial on YouTube
 
