@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use SnappySonic, please cite it as below."
+authors:
+- family-names: "Thompson"
+  given-names: "Stephen"
+  orcid: "https://orcid.org/0000-0001-7286-1326"
+- family-names: "Dowrick"
+  given-names: "Thomas"
+  orcid: "https://orcid.org/0000-0002-2712-4447"
+- family-names: "Ahmad"
+  given-names: "Mian"
+  orcid: "https://orcid.org/0000-0002-4706-4146"
+- family-names: "Clarkson"
+  given-names: "Matthew"
+  orcid: "https://orcid.org/0000-0002-5565-1252"
+title: "SnappySonic"
+doi: 10.5281/zenodo.3491054
+url: "https://github.com/SciKit-Surgery/snappysonic"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Thompson"
+    given-names: "Stephen"
+    orcid: "https://orcid.org/0000-0001-7286-1326"
+  - family-names: "Dowrick"
+    given-names: "Thomas"
+    orcid: "https://orcid.org/0000-0002-2712-4447"
+  - family-names: "Xiao"
+    given-names: "Guofang"
+  - family-names: "Ramalhinho"
+    given-names: "Jo{\~a}o"
+  - family-names: "Robu"
+    given-names: "Maria"
+  - family-names: "Ahmad"
+    given-names: "Mian"
+    orcid: "https://orcid.org/0000-0002-4706-4146"
+  - family-names: "Taylor"
+    given-names: "Dan"
+  - family-names: "Clarkson"
+    given-names: "Matthew"
+    orcid: "https://orcid.org/0000-0002-5565-1252"
+  doi: 10.5334/jors.289
+  journal: "Journal of Open Research Software"
+  title: "SnappySonic: An Ultrasound Acquisition Replay Simulator"
+  volume: 8
+  issue: 1
+  year: 2020

@@ -1,18 +1,18 @@
 SnappySonic
 ===============================
 
-.. image:: https://github.com/UCL/snappysonic/raw/master/project-icon.png
+.. image:: https://github.com/SciKit-Surgery/snappysonic/raw/master/project-icon.png
    :height: 128px
    :width: 128px
-   :target: https://github.com/UCL/snappysonic
+   :target: https://github.com/SciKit-Surgery/snappysonic
    :alt: Logo
 
-.. image:: https://github.com/UCL/snappysonic/workflows/.github/workflows/ci.yml/badge.svg
-   :target: https://github.com/UCL/snappysonic/actions
+.. image:: https://github.com/SciKit-Surgery/snappysonic/workflows/.github/workflows/ci.yml/badge.svg
+   :target: https://github.com/SciKit-Surgery/snappysonic/actions
    :alt: GitHub Actions CI status
 
-.. image:: https://coveralls.io/repos/github/UCL/snappysonic/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/UCL/snappysonic?branch=master 
+.. image:: https://coveralls.io/repos/github/SciKit-Surgery/snappysonic/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/SciKit-Surgery/snappysonic?branch=master 
     :alt: Test coverage
 
 .. image:: https://readthedocs.org/projects/snappysonic/badge/?version=latest
@@ -23,18 +23,17 @@ SnappySonic
     :target: http://doi.org/10.5334/jors.289
     :alt: The SnappySonic Paper
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3491054.svg
-   :target: https://doi.org/10.5281/zenodo.3491054
-   :alt: Software DOI
-
 .. image:: https://api.codeclimate.com/v1/badges/326c1b87863bd61bbe83/maintainability
-   :target: https://codeclimate.com/github/UCL/snappysonic/maintainability
+   :target: https://codeclimate.com/github/SciKit-Surgery/snappysonic/maintainability
    :alt: Maintainability
 
 .. image:: https://img.shields.io/badge/-Video%20Tutorial-blueviolet?style=flat&logo=youtube
    :target: https://www.youtube.com/watch?v=BI4qyg9NEOk
    :alt: Tutorial on YouTube
 
+.. image:: https://img.shields.io/twitter/follow/scikit_surgery?style=social
+   :target: https://twitter.com/scikit_surgery?ref_src=twsrc%5Etfw
+   :alt: Follow scikit_surgery on twitter
 
 
 Author: Stephen Thompson
@@ -90,7 +89,7 @@ You can clone the repository using the following command:
 
 ::
 
-    git clone https://github.com/UCL/snappysonic
+    git clone https://github.com/SciKit-Surgery/snappysonic
 
 
 Running tests
@@ -112,7 +111,7 @@ You can pip install from pypi with
 or You can pip install directly from the repository as follows:
 ::
 
-    pip install git+https://github.com/UCL/snappysonic
+    pip install git+https://github.com/SciKit-Surgery/snappysonic
 
 How to Cite
 -----------
@@ -147,14 +146,14 @@ Supported by `Wellcome`_ and `EPSRC`_.
 
 
 .. _`Wellcome EPSRC Centre for Interventional and Surgical Sciences`: http://www.ucl.ac.uk/weiss
-.. _`source code repository`: https://github.com/UCL/snappysonic
-.. _`here`: https://github.com/UCL/snappysonic/config.json
-.. _`source code repository data directory`: https://github.com/UCL/snappysonic/data
+.. _`source code repository`: https://github.com/SciKit-Surgery/snappysonic
+.. _`here`: https://github.com/SciKit-Surgery/snappysonic/config.json
+.. _`source code repository data directory`: https://github.com/SciKit-Surgery/snappysonic/data
 .. _`Documentation`: https://snappysonic.readthedocs.io
-.. _`SciKit-Surgery`: https://github.com/UCL/scikit-surgery/wikis/home
+.. _`SciKit-Surgery`: https://github.com/SciKit-Surgery/scikit-surgery
 .. _`University College London (UCL)`: http://www.ucl.ac.uk/
 .. _`Wellcome`: https://wellcome.ac.uk/
 .. _`EPSRC`: https://www.epsrc.ac.uk/
-.. _`contributing guidelines`: https://github.com/UCL/snappysonic/blob/master/CONTRIBUTING.rst
-.. _`license file`: https://github.com/UCL/snappysonic/blob/master/LICENSE
+.. _`contributing guidelines`: https://github.com/SciKit-Surgery/snappysonic/blob/master/CONTRIBUTING.rst
+.. _`license file`: https://github.com/SciKit-Surgery/snappysonic/blob/master/LICENSE
 .. _`SnappySonic paper`: http://doi.org/10.5334/jors.289
