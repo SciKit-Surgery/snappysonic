@@ -23,7 +23,7 @@ SnappySonic
     :target: http://doi.org/10.5334/jors.289
     :alt: The SnappySonic Paper
 
-.. image:: https://api.codeclimate.com/v1/badges/326c1b87863bd61bbe83/maintainability
+.. image:: https://api.codeclimate.com/v1/badges/78440062319f61c55177/maintainability
    :target: https://codeclimate.com/github/SciKit-Surgery/snappysonic/maintainability
    :alt: Maintainability
 
