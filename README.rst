@@ -1,9 +1,8 @@
 SnappySonic
 ===============================
 
-.. image:: https://github.com/SciKit-Surgery/snappysonic/raw/master/project-icon.png
-   :height: 128px
-   :width: 128px
+.. image:: https://github.com/SciKit-Surgery/snappysonic/raw/master/snappysonic.gif
+   :height: 134px
    :target: https://github.com/SciKit-Surgery/snappysonic
    :alt: Logo
 
