@@ -6,6 +6,8 @@ SnappySonic
    :target: https://github.com/SciKit-Surgery/snappysonic
    :alt: Logo
 
+|
+
 .. image:: https://github.com/SciKit-Surgery/snappysonic/workflows/.github/workflows/ci.yml/badge.svg
    :target: https://github.com/SciKit-Surgery/snappysonic/actions
    :alt: GitHub Actions CI status
