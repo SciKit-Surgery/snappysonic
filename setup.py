@@ -17,7 +17,7 @@ setup(
     description='snappysonic provides an application to simulate an ultrasound probe moving over a body torso, it is intended for public engagement events"',
     long_description=long_description,
     long_description_content_type='text/x-rst',
-    url='https://github.com/UCL/snappysonic',
+    url='https://github.com/SciKit-Surgery/snappysonic',
     author='Stephen Thompson',
     author_email='s.thompson@ucl.ac.uk',
     license='BSD-3 license',
