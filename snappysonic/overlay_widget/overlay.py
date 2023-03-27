@@ -5,7 +5,7 @@ from packaging import version
 from PySide2.QtWidgets import QLabel, QWidget
 from cv2 import (rectangle, putText, circle, imread)
 from numpy import zeros, uint8
-from sksurgeryutils.common_overlay_apps import OverlayBaseApp
+from sksurgeryutils.common_overlay_apps import OverlayBaseWidget
 from sksurgeryimage.utilities.weisslogo import WeissLogo
 from sksurgeryarucotracker import __version__ as arucoversion
 from snappysonic.algorithms.algorithms import (configure_tracker,
@@ -15,9 +15,9 @@ from snappysonic.algorithms.algorithms import (configure_tracker,
                                                numpy_to_qpixmap)
 
 
-class OverlayApp(OverlayBaseApp):
+class OverlayApp(OverlayBaseWidget):
     """
-    Inherits from OverlayBaseApp,
+    Inherits from OverlayBaseWidget,
     adding code to read in video buffers, and display a frame
     of data that depends on the position of an external tracking system,
     e.g. surgeryarucotracker
