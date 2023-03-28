@@ -13,7 +13,7 @@ SnappySonic
    :alt: GitHub Actions CI status
 
 .. image:: https://coveralls.io/repos/github/SciKit-Surgery/snappysonic/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/SciKit-Surgery/snappysonic?branch=master 
+    :target: https://coveralls.io/github/SciKit-Surgery/snappysonic?branch=master
     :alt: Test coverage
 
 .. image:: https://readthedocs.org/projects/snappysonic/badge/?version=latest
@@ -39,14 +39,14 @@ SnappySonic
 
 Author: Stephen Thompson
 
-SnappySonic can be used as an ultrasound acquisition simulator. The output from a tracking system (NDI or AruCo tags) is to select a frame of pre-recorded video to show. A suitable video of ultrasound data is included in the data directory, however the user can select a video of their choosing. The software and its use is described in the `SnappySonic paper`_. 
+SnappySonic can be used as an ultrasound acquisition simulator. The output from a tracking system (NDI or AruCo tags) is to select a frame of pre-recorded video to show. A suitable video of ultrasound data is included in the data directory, however the user can select a video of their choosing. The software and its use is described in the `SnappySonic paper`_.
 
 SnappySonic is part of the `SciKit-Surgery`_ software project, developed at the `Wellcome EPSRC Centre for Interventional and Surgical Sciences`_, part of `University College London (UCL)`_.
 
 SnappySonic supports Python 3.6.
 
 ::
- 
+
     pip install snappysonic
     python snappysonic.py --config config.json
 
@@ -148,10 +148,10 @@ Supported by `Wellcome`_ and `EPSRC`_.
 
 .. _`Wellcome EPSRC Centre for Interventional and Surgical Sciences`: http://www.ucl.ac.uk/weiss
 .. _`source code repository`: https://github.com/SciKit-Surgery/snappysonic
-.. _`here`: https://github.com/SciKit-Surgery/snappysonic/config.json
-.. _`source code repository data directory`: https://github.com/SciKit-Surgery/snappysonic/data
+.. _`here`: https://github.com/SciKit-Surgery/snappysonic/blob/master/config.json
+.. _`source code repository data directory`: https://github.com/SciKit-Surgery/snappysonic/blob/master/data
 .. _`Documentation`: https://snappysonic.readthedocs.io
-.. _`SciKit-Surgery`: https://github.com/SciKit-Surgery/scikit-surgery
+.. _`SciKit-Surgery`: https://github.com/SciKit-Surgery
 .. _`University College London (UCL)`: http://www.ucl.ac.uk/
 .. _`Wellcome`: https://wellcome.ac.uk/
 .. _`EPSRC`: https://www.epsrc.ac.uk/
