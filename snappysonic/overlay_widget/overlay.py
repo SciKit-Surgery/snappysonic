@@ -33,7 +33,7 @@ class OverlayApp(OverlayBaseWidget):
 
         if "ultrasound buffer" in config:
             #and call the constructor for the base class
-            super().__init__(config.get("ultrasound buffer"))
+            super().__init__(config.get("ultrasound buffer"), init_vtk_widget=False)
         else:
             raise KeyError("Configuration must contain an ultrasound buffer")
 
