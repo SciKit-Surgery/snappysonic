@@ -76,7 +76,7 @@ class OverlayApp(OverlayBaseWidget):
         #if "log directory" in config:
         #    self._logger = sksurgerydatasaver(config.get("log directory"))
 
-    def update(self):
+    def update_view(self):
         """
         Update the background renderer with a new frame,
         move the model and render
