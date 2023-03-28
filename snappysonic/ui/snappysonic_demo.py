@@ -21,8 +21,12 @@ def run_demo(configfile):
     configuration = configurer.get_copy()
 
     viewer = OverlayApp(configuration)
+    viewer.vtk_overlay_window.Initialize()
+    viewer.vtk_overlay_window.Start()
+    viewer.show()
 
     viewer.start()
 
     #start the application
     sys.exit(app.exec_())
+    viewer.stop()
