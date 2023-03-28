@@ -3,7 +3,6 @@
 
 """SnappySonicdemo module"""
 
-import sys
 from PySide2.QtWidgets import QApplication
 from sksurgerycore.configuration.configuration_manager import (
         ConfigurationManager
@@ -28,5 +27,5 @@ def run_demo(configfile):
     viewer.start()
 
     #start the application
-    sys.exit(app.exec_())
+    app.exec_()
     viewer.stop()
