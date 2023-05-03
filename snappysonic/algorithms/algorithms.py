@@ -1,6 +1,6 @@
 """Functions for snappysonic"""
 from numpy import iinfo, int16
-from PySide2.QtGui import QPixmap, QImage
+from PySide6.QtGui import QPixmap, QImage
 from sksurgerynditracker.nditracker import NDITracker
 from sksurgeryarucotracker.arucotracker import ArUcoTracker
 

@@ -2,7 +2,7 @@
 
 """Main loop for tracking visualisation"""
 from packaging import version
-from PySide2.QtWidgets import QLabel, QWidget
+from PySide6.QtWidgets import QLabel, QWidget
 from cv2 import (rectangle, putText, circle, imread)
 from numpy import zeros, uint8
 from sksurgeryutils.common_overlay_apps import OverlayBaseWidget

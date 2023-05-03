@@ -2,10 +2,10 @@
 # It is used by pip to manage software dependencies. It is not to be
 # confused with the software requirements, which are listed in
 # doc/requirements.rst
-scikit-surgeryutils>=1.2.1
+scikit-surgeryutils>=2.0rc0
 scikit-surgerynditracker
 scikit-surgeryarucotracker
 scikit-surgeryimage>=0.6.0
-PySide2
+PySide6
 numpy
 opencv-contrib-python

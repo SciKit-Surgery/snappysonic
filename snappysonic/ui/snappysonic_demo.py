@@ -3,7 +3,7 @@
 
 """SnappySonicdemo module"""
 
-from PySide2.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication
 from sksurgerycore.configuration.configuration_manager import (
         ConfigurationManager
         )
