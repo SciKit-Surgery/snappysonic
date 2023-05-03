@@ -8,5 +8,10 @@ from PySide6.QtWidgets import QApplication
 def setup_qt():
 
     """ Create the QT application. """
-    app = QApplication([])
-    return app
+    # Check if already an instance of QApplication is present or not
+    if not QApplication.instance():
+        _pyside_qt_app = QApplication([])
+    else:
+        _pyside_qt_app = QApplication.instance()
+
+    return _pyside_qt_app
