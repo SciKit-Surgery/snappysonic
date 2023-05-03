@@ -58,10 +58,23 @@ jobs:
       - name: Run tests using xvfb (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          sudo apt-get install xvfb libxkbcommon-x11-0
-          sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
+          sudo apt-get update
+          sudo apt-get install xvfb
+          sudo apt-get install libegl-dev
+          ## Qt for X11 Requirements> https://doc.qt.io/qt-6/linux-requirements.html
+          sudo apt-get install libfontconfig1-dev libfreetype6-dev
+          sudo apt-get install libx11-dev libx11-xcb-dev
+          sudo apt-get install libxext-dev libxfixes-dev
+          sudo apt-get install libxi-dev libxrender-dev
+          sudo apt-get install libxcb1-dev libxcb-glx0-dev libxcb-keysyms1-dev
+          sudo apt-get install libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev
+          sudo apt-get install libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev
+          sudo apt-get install libxcb-render-util0-dev libxcb-util-dev libxcb-xinerama0-dev libxcb-xkb-dev
+          sudo apt-get install libxkbcommon-dev libxkbcommon-x11-dev
+
           export DISPLAY=":1"
-          export LD_LIBRARY_PATH=$pythonLocation"/lib/python3.6/site-packages/PySide2/Qt/plugins/platfoms"
+          sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
+          export LD_LIBRARY_PATH=$pythonLocation"/lib/python${{ matrix.python-version }}/site-packages/PySide6/Qt/plugins/platforms"
           coverage erase
           coverage run -a --source ./snappysonic -m pytest
           coverage report -m
