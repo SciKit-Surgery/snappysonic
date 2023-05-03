@@ -51,13 +51,13 @@ setup(
     ),
 
     install_requires=[
-        'opencv-contrib-python',
+        'opencv-contrib-python-headless',
         'scikit-surgeryimage>=0.6.0',
-        'scikit-surgeryutils>=1.2.1',
+        'scikit-surgeryutils>=2.0rc0',
         'scikit-surgerynditracker',
         'scikit-surgeryarucotracker',
         'numpy',
-        'PySide2',
+        'PySide6',
     ],
 
     entry_points={
