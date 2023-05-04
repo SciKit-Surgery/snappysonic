@@ -86,7 +86,7 @@ def test_init_no_logo(setup_qt):
     config.update({"ultrasound buffer": "data/usbuffer.mp4"})
 
     overlay_widget = OverlayApp(config)
-    overlay_widget.update()
+    overlay_widget.update_view()
     overlay_widget.stop()
 
 
@@ -115,7 +115,7 @@ def test_and_run_with_logo(setup_qt):
     }
 
     overlay_widget = OverlayApp(config)
-    overlay_widget.update()
+    overlay_widget.update_view()
     overlay_widget.stop()
 
 
@@ -144,5 +144,5 @@ def test_and_run_with_buffer_data(setup_qt):
     }
 
     overlay_widget = OverlayApp(config)
-    overlay_widget.update()
+    overlay_widget.update_view()
     overlay_widget.stop()
